@@ -1,21 +1,39 @@
-// 1 Загрузка изображения и заполнение информации о нем
-// - Выбор файла для загрузки;
-// - Изменение его масштаба;
-// - Применение эффектов;
-// - Выбор глубины эффекта с помощью ползунка;
-// - Добавление текстового комментария;
-// - Добавление хэштегов;
-// Загрузка реальной фотографии опционально
+// Первое задание. Получение целого числа + условия.
+function getRandomInt (min, max) {
+  let random = Math.floor(Math.random() * (max - min)) + min;
 
-// 1.2 Контрол загрузки файла #upload-file
-// - изменение значения поля контрола. Показывается форма редактирования изображения;
-// - Удалить класс .hidden у элемента .img-upload__overlay;
-// - Задать класс .modal-open элементу body;
+  if (random >= 0, max >= min) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    console.log('Получено случайное значение: ' + random.toString());
+  } else {
+    console.log('Получено отрицательное значение! ' + random.toString());
+  };
 
-// 1.3 Закрытие формы редактирования
-// - Закрыть форму с помощью #upload-cancel либо кнопкой ESC;
-// - Вернуть элементу .img-upload__overlay класс .hidden;
-// - Элементу body удалить класс .modal-open;
+  if (max < min ) {
+    console.log('Используется недопустимый диапазон значений');
+  };
+};
 
-// 2 РЕДАКТИРОВАНИЕ ФАЙЛА d
-f
+getRandomInt(-2, -5);
+
+Источник: [MDN] ('https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random')
+
+
+// Второе задание!
+
+let textValue = 'Строка - но не сто сорок символов';
+let lengthNumber = textValue.length;
+let maxLength = 140;
+
+function getLength (textValue, maxLength) {
+  if (lengthNumber <= 140) {
+    console.log('Число не превышает 140 симоволов ' + lengthNumber.toString());
+    return true;
+  } else {
+      console.log('Число вводимых символов превышает максимальное значение! ' + lengthNumber.toString());
+      return false;
+    }
+}
+
+getLength();
