@@ -1,45 +1,61 @@
-// AN ARRAY with 25 generated objects. Each array contains a photocard;
-let GalleryArray = new Array (25);
-// THE PHOTOCARD shall include the following:
-let photocardArray = {
-  id: photocardId,
-  url: urlPath,
-  description: SomeTextArray,
-  likes: photoLikes,
-  comments: commentsArray,
-}
+/* 
 
+// AN ARRAY with 25 generated objects. Each array contains a photocard;
+    let galleryArray = new Array (25);
+    // THE PHOTOCARD shall include the following:
+    let photocardArray = {
+      id: NumberArrays,
+      url: urlPath,
+      description: SomeTextArray,
+      likes: photoLikes,
+      comments: commentsArray,
+    }
+
+ */
 // EACH ITEM IS AN ARRAY!
 // EACH ARRAY HAS REQUIREMENTS!
 
 // ID. numeric; unique, min = 1; max = 25;
 // - id;
+// let NumberArrays = []
 
-let isCycleFunction = () => {
-  for (let i = 1; i <= 25; i++) {
-    let IdNumber = i;
-  }
-}
-console.log(IdNumber.toString());
-let photocardId = isCycleFunction();
-isCycleFunction();
+//   for (let i = 1; i <= 25; i++) {
+//     idNumber = i;
+//     NumberArrays.push(idNumber);
+//   }
+
 
 // URL. img; src 'i.jpg'; let i; min = 1; max = 25;
 // - url;
-let urlPath;
+// let urlPath;
 
-  for (let i = 1; i <= 25; i++) {
-    urlPath = i;
-    console.log(`photos/${urlPath}.jpg`);
-}
+//   for (let i = 1; i <= 25; i++) {
+//     urlPath = i;
+//     console.log(`photos/${urlPath}.jpg`);
+
+// }
 
 // DESCRIPTION. text; generated.
 // - description;
-let photoDescription = 'Кекстаграммная котейка';
+// let quotesArray = [
+//   'Кекстаграммная котейка',
+//   'Блудливый котян',
+//   'Ночной пуритан',
+//   'Предсказуемый кот-жрец',
+//   'Развратный жмурик',
+// ]
+
+// let descriptionIndex;
+// let getRandomQuote = function () {
+//   descriptionIndex = Math.floor(Math.random()*quotesArray.length);
+//   quotesArray[descriptionIndex];
+// }
+// getRandomQuote();
+// console.log(quotesArray[descriptionIndex]);
 
 // LIKES. numeric; random; min = 15 max = 200.
 // - likes;
-let photoLikes = getRandomInt(15, 200);
+// let photoLikes;
 const ERROR_MESSAGE = new Error('Невозможно разобрать входные данные');
 
 function getRandomInt(min, max) {
@@ -54,34 +70,35 @@ function getRandomInt(min, max) {
     throw ERROR_MESSAGE;
   }
 }
-
+// photoLikes = RANDOM;
+// getRandomInt(15, 200);
 
 
 // COMMENTS. text; Array; comment list; amount = random;
 // - comments;
 // let comments;
-//
+
 // let commentsArray = {
-//   id: 135,
+//   id: ,
 //   avatar: 'img/avatar-6.svg',
 //   message: 'В целом всё неплохо. Но не всё.',
 //   name: commentNames,
 // }
 
 // COMMENT ID. numeric; random; unique;
-let commentsId;
-let RandomIdArray = new Array(25);
+let randomIdArray = new Array(25);
+let currentRandomNumber = 0;
+//     idNumber = i;
+//     NumberArrays.push(idNumber);
 
-
-let getId = function () {
   for (let i = 1; i <= 25; i++) {
-    let currentRandomNumber = getRandomInt(1, 100);
-    RandomIdArray.push(currentRandomNumber);
+    getRandomInt(1, 2500);
+    currentRandomNumber = RANDOM
+    randomIdArray.push(currentRandomNumber);
   }
-}
-
-getId();
-console.log('RandomIdArray.toString()');
+  console.log(currentRandomNumber);
+// getId();
+// console.log('RandomIdArray.toString()');
 
 
 // const TEXT_VALUE = 'Строка - но не сто сорок символов';
@@ -111,32 +128,32 @@ console.log('RandomIdArray.toString()');
 // Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!
 
 // СOMMENT NAMES. text; random; Optional;
-commentNames
-let FirstName = {
-  title: 'Антуан',
-  title: 'Сильвуплэ',
-  title: 'Рикки',
-  title: 'Максимильян',
-}
+// commentNames
+// let FirstName = {
+//   title: 'Антуан',
+//   title: 'Сильвуплэ',
+//   title: 'Рикки',
+//   title: 'Максимильян',
+// }
 
-let SurNames = {
-  SurName: 'Дзюба',
-  SurName: 'Рошан',
-  SurName: 'Шекспиров',
-  SurName: 'Дебильный',
-}
+// let SurNames = {
+//   SurName: 'Дзюба',
+//   SurName: 'Рошан',
+//   SurName: 'Шекспиров',
+//   SurName: 'Дебильный',
+// }
 
-// Второе задание!
+// // Второе задание!
 
-const TEXT_VALUE = 'Строка - но не сто сорок символов';
-const LENGTH_NUMBER = TEXT_VALUE.length;
+// const TEXT_VALUE = 'Строка - но не сто сорок символов';
+// const LENGTH_NUMBER = TEXT_VALUE.length;
 
-function getLength(inspectedLine, maxLength) {
-  if (LENGTH_NUMBER <= maxLength) {
-    return true;
-  } else {
-    return false;
-  }
-}
+// function getLength(inspectedLine, maxLength) {
+//   if (LENGTH_NUMBER <= maxLength) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
 
-getLength();
+// getLength();
