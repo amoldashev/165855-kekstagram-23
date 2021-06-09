@@ -1,4 +1,4 @@
-/* 
+/*
 
 // AN ARRAY with 25 generated objects. Each array contains a photocard;
     let galleryArray = new Array (25);
@@ -57,11 +57,11 @@
 // - likes;
 // let photoLikes;
 const ERROR_MESSAGE = new Error('Невозможно разобрать входные данные');
-
+let randomNumber;
 function getRandomInt(min, max) {
-  const RANDOM = Math.floor(Math.random() * (max - min)) + min;
+  randomNumber = Math.floor(Math.random() * (max - min)) + min;
 
-  if (RANDOM >= 0, max >= min) {
+  if (randomNumber >= 0, max >= min) {
     min = Math.ceil(min);
     max = Math.floor(max);
   }
@@ -69,6 +69,7 @@ function getRandomInt(min, max) {
   if (max < min) {
     throw ERROR_MESSAGE;
   }
+  return randomNumber;
 }
 // photoLikes = RANDOM;
 // getRandomInt(15, 200);
@@ -86,20 +87,13 @@ function getRandomInt(min, max) {
 // }
 
 // COMMENT ID. numeric; random; unique;
-let randomIdArray = new Array(25);
-let currentRandomNumber = 0;
-//     idNumber = i;
-//     NumberArrays.push(idNumber);
+let randomIdArray = [];
+let currentRandomNumber;
 
-  for (let i = 1; i <= 25; i++) {
-    getRandomInt(1, 2500);
-    currentRandomNumber = RANDOM
-    randomIdArray.push(currentRandomNumber);
-  }
-  console.log(currentRandomNumber);
-// getId();
-// console.log('RandomIdArray.toString()');
-
+for (let j = 1; j <= 25; j++) {
+  currentRandomNumber = getRandomInt(1, 1000);
+  randomIdArray.push(currentRandomNumber);
+}
 
 // const TEXT_VALUE = 'Строка - но не сто сорок символов';
 // const LENGTH_NUMBER = TEXT_VALUE.length;
