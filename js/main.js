@@ -5,7 +5,7 @@
     // THE PHOTOCARD shall include the following:
     let photocardArray = {
       id: NumberArrays,
-      url: urlPath,
+      url: newStr,
       description: SomeTextArray,
       likes: photoLikes,
       comments: commentsArray,
@@ -17,24 +17,48 @@
 
 // ID. numeric; unique, min = 1; max = 25;
 // - id;
-// let NumberArrays = []
+let NumberArrays = []
 
-//   for (let i = 1; i <= 25; i++) {
+  for (let i = 1; i <= 25; i++) {
+    idNumber = i;
+    NumberArrays.push(idNumber);
+  }
+
+// function startFromZero () {
+//   for (let i = 0; i < 25; i++) {
 //     idNumber = i;
-//     NumberArrays.push(idNumber);
 //   }
+// }
 
 
 // URL. img; src 'i.jpg'; let i; min = 1; max = 25;
-// - url;
-// let urlPath;
+// let urlPath = 'photos/${{i}}.jpg';
+let urlNumber;
 
-//   for (let i = 1; i <= 25; i++) {
-//     urlPath = i;
-//     console.log(`photos/${urlPath}.jpg`);
 
+// function replaceString () {
+//   let RegExp = '${{i}}';
+//   newStr = urlPath.replace(RegExp, urlNumberFunction);
+//   // for (let i = 1; i <= 25; i++) {urlNumber = i;}
+//   return newStr;
 // }
+// replaceString();
+// console.log(newStr)
+// replaceString();
+// console.log(newStr)
 
+let = urlNumberFunction = function getUrlArray () {
+  let emptyArray = NumberArrays.slice();
+  urlNumber = 0;
+  emptyArray.forEach(element => {
+    urlNumber = emptyArray[element - 2];
+    console.log(urlNumber)
+    return urlNumber;
+  });
+
+}
+getUrlArray();
+console.log(urlNumberFunction)
 // DESCRIPTION. text; generated.
 // - description;
 // let quotesArray = [
@@ -87,30 +111,21 @@ function getRandomInt(min, max) {
 // }
 
 // COMMENT ID. numeric; random; unique;
-let randomIdArray = [];
-let currentRandomNumber;
+// let randomIdArray = [];
+// let currentRandomNumber;
 
-for (let j = 1; j <= 25; j++) {
-  currentRandomNumber = getRandomInt(1, 1000);
-  randomIdArray.push(currentRandomNumber);
-}
-
-// const TEXT_VALUE = 'Строка - но не сто сорок символов';
-// const LENGTH_NUMBER = TEXT_VALUE.length;
-//
-// function getLength(inspectedLine, maxLength) {
-//   if (LENGTH_NUMBER <= maxLength) {
-//     return true;
-//   } else {
-//     return false;
-//   }
+// for (let j = 1; j <= 25; j++) {
+//   currentRandomNumber = getRandomInt(1, 1000);
+//   randomIdArray.push(currentRandomNumber);
 // }
-//
-// getLength();
 
 
 // COMMENT avatar. string; value min = 1 max = 6 i.e. avatar-6.svg;
 // - avatar field;
+
+let formAvatarLink = function (item, index) {
+  
+}
 
 // COMMENT MESSAGE. one or two sentences to be included as an examp
 
