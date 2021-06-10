@@ -1,13 +1,11 @@
 const ERROR_MESSAGE = new Error('Bad Number!');
 const MAX_COMMENT_COUNT = 6;
 const MAX_MESSAGE_COUNT = 6;
-const NUMBER_ARRAYS = [];
-
+const MAX_NAME_COUNT = 6;
 const MAX_LIKE = 2000;
 const MIN_LIKE = 0;
 const RANDOM_LIKE = 0;
 const DESCRIPTION_INDEX = 0;
-const MESSAGE_INDEX = 0;
 const MAX_PHOTOCARD_AMOUNT = 25;
 
 const MESSAGE_ARRAYS = [
@@ -38,15 +36,19 @@ const NAMES_ARRAYS = [
 
 // Вызывает случайную цитату
 
+let descriptionIndex;
+
 function getRandomQuote() {
-  DESCRIPTION_INDEX = Math.floor(Math.random()*QUOTES_ARRAYS.length);
-  return QUOTES_ARRAYS[DESCRIPTION_INDEX];
+  descriptionIndex = Math.floor(Math.random()*QUOTES_ARRAYS.length);
+  return QUOTES_ARRAYS[descriptionIndex];
 }
 
 // Выставляет случайное число лайков
 
+let randomLike;
+
 function getRandomLike(MIN_LIKE, MAX_LIKE) {
-  RANDOM_LIKE = Math.floor(Math.random() * (MAX_LIKE - MIN_LIKE)) + MIN_LIKE;
+  randomLike = Math.floor(Math.random() * (MAX_LIKE - MIN_LIKE)) + MIN_LIKE;
 
   if (RANDOM_LIKE >= 0, MAX_LIKE >= MIN_LIKE) {
     MIN_LIKE = Math.ceil(MIN_LIKE);
@@ -54,39 +56,48 @@ function getRandomLike(MIN_LIKE, MAX_LIKE) {
   } else {
     throw ERROR_MESSAGE;
   }
-  return RANDOM_LIKE;
+  return randomLike;
 }
 
 // Вызывает случайное сообщение
 
 function createRandomMessage(MAX_MESSAGE_COUNT) {
   let randomMessageArrays = [];
+  let messageIndex = 0;
   for (let messageCount = 0; messageCount < MAX_MESSAGE_COUNT; messageCount++) {
-    let messageIndex = Math.floor(Math.random()*messageArrays.length);
-    randomMessageArrays.push(messageArrays[messageIndex])
+    messageIndex = Math.floor(Math.random()*MESSAGE_ARRAYS.length);
+    randomMessageArrays.push(MESSAGE_ARRAYS[messageIndex]);
     return randomMessageArrays.toString();
   }
 }
 
 // Добавляет случайное имя
 
+function getRandomName(MAX_NAME_COUNT) {
+  let randomNameArrays = [];
+  let nameIndex = 0;
+  for (let nameCount = 1; nameCount < MAX_NAME_COUNT; nameCount++) {
+    nameIndex = Math.floor(Math.random()*NAMES_ARRAYS.length);
+    randomNameArrays.push(NAMES_ARRAYS[nameIndex]);
+    return randomNameArrays.toString();
+  }
+}
 
+// Создает массив комментарий
 
-// COMMENTS. text; Array; comment list; amount = random;
-// - comments;
-function createCommentsBlock (MAX_COMMENT_COUNT) {
+function createCommentsBlock(MAX_COMMENT_COUNT) {
   let commentsArrays = [];
   for (let commentsIdNumber = 1; commentsIdNumber <= MAX_COMMENT_COUNT; commentsIdNumber++) {
     commentsArrays.push ({
       id: commentsIdNumber,
       avatar: `img/avatar-${{commentsIdNumber}}.svg`,
       message: createRandomMessage(),
-      name: commentNames,
+      name: getRandomName(MAX_NAME_COUNT),
     });
-  };
+  }
 }
 
-// Создает блок карточек
+// Создает массив карточек
 
 function setPhotocardData(MAX_PHOTOCARD_AMOUNT) {
   const PHOTOCARD_ARRAY = [];
@@ -100,4 +111,5 @@ function setPhotocardData(MAX_PHOTOCARD_AMOUNT) {
     });
   }
 }
+
 setPhotocardData(MAX_PHOTOCARD_AMOUNT);
