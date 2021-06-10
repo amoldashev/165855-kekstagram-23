@@ -1,14 +1,13 @@
-const ERROR_MESSAGE = new Error('Bad Number!');
+const ERROR_MESSAGE = 'message';
 const MAX_COMMENT_COUNT = 6;
 const MAX_MESSAGE_COUNT = 6;
 const MAX_NAME_COUNT = 6;
-const MAX_LIKE = 2000;
+const MAX_LIKE_COUNT = 2000;
 const MIN_LIKE = 0;
 const RANDOM_LIKE = 0;
-const DESCRIPTION_INDEX = 0;
 const MAX_PHOTOCARD_AMOUNT = 25;
 
-const MESSAGE_ARRAYS = [
+const MESSAGE_ARRAY = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -17,7 +16,7 @@ const MESSAGE_ARRAYS = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const QUOTES_ARRAYS = [
+const QUOTES_ARRAY = [
   'Кекстаграммная котейка',
   'Блудливый котян',
   'Ночной пуритан',
@@ -25,7 +24,7 @@ const QUOTES_ARRAYS = [
   'Развратный жмурик',
 ];
 
-const NAMES_ARRAYS = [
+const NAMES_ARRAY = [
   'Антуан',
   'Роджер',
   'Рошан',
@@ -39,22 +38,22 @@ const NAMES_ARRAYS = [
 let descriptionIndex;
 
 function getRandomQuote() {
-  descriptionIndex = Math.floor(Math.random()*QUOTES_ARRAYS.length);
-  return QUOTES_ARRAYS[descriptionIndex];
+  descriptionIndex = Math.floor(Math.random()*QUOTES_ARRAY.length);
+  return QUOTES_ARRAY[descriptionIndex];
 }
 
 // Выставляет случайное число лайков
 
 let randomLike;
 
-function getRandomLike(MIN_LIKE, MAX_LIKE) {
-  randomLike = Math.floor(Math.random() * (MAX_LIKE - MIN_LIKE)) + MIN_LIKE;
+function getRandomLike(MIN_LIKE, MAX_LIKE_COUNT) {
+  randomLike = Math.floor(Math.random() * (MAX_LIKE_COUNT - MIN_LIKE)) + MIN_LIKE;
 
-  if (RANDOM_LIKE >= 0, MAX_LIKE >= MIN_LIKE) {
+  if (RANDOM_LIKE >= 0, MAX_LIKE_COUNT >= MIN_LIKE) {
     MIN_LIKE = Math.ceil(MIN_LIKE);
-    MAX_LIKE = Math.floor(MAX_LIKE);
+    MAX_LIKE_COUNT = Math.floor(MAX_LIKE_COUNT);
   } else {
-    throw ERROR_MESSAGE;
+    throw new Error(ERROR_MESSAGE);
   }
   return randomLike;
 }
@@ -65,8 +64,8 @@ function createRandomMessage(MAX_MESSAGE_COUNT) {
   let randomMessageArrays = [];
   let messageIndex = 0;
   for (let messageCount = 0; messageCount < MAX_MESSAGE_COUNT; messageCount++) {
-    messageIndex = Math.floor(Math.random()*MESSAGE_ARRAYS.length);
-    randomMessageArrays.push(MESSAGE_ARRAYS[messageIndex]);
+    messageIndex = Math.floor(Math.random()*MESSAGE_ARRAY.length);
+    randomMessageArrays.push(MESSAGE_ARRAY[messageIndex]);
     return randomMessageArrays.toString();
   }
 }
@@ -77,16 +76,16 @@ function getRandomName(MAX_NAME_COUNT) {
   let randomNameArrays = [];
   let nameIndex = 0;
   for (let nameCount = 1; nameCount < MAX_NAME_COUNT; nameCount++) {
-    nameIndex = Math.floor(Math.random()*NAMES_ARRAYS.length);
-    randomNameArrays.push(NAMES_ARRAYS[nameIndex]);
+    nameIndex = Math.floor(Math.random()*NAMES_ARRAY.length);
+    randomNameArrays.push(NAMES_ARRAY[nameIndex]);
     return randomNameArrays.toString();
   }
 }
 
 // Создает массив комментарий
-
+let commentsArrays = [];
 function createCommentsBlock(MAX_COMMENT_COUNT) {
-  let commentsArrays = [];
+  
   for (let commentsIdNumber = 1; commentsIdNumber <= MAX_COMMENT_COUNT; commentsIdNumber++) {
     commentsArrays.push ({
       id: commentsIdNumber,
@@ -98,18 +97,19 @@ function createCommentsBlock(MAX_COMMENT_COUNT) {
 }
 
 // Создает массив карточек
-
+const PHOTOCARD_ARRAY = [];
 function setPhotocardData(MAX_PHOTOCARD_AMOUNT) {
-  const PHOTOCARD_ARRAY = [];
   for (let idNumber = 1; idNumber <= MAX_PHOTOCARD_AMOUNT; idNumber++) {
     PHOTOCARD_ARRAY.push ({
       id: idNumber,
       url: `photos/${{idNumber}}.jpg`,
       description: getRandomQuote(),
-      likes: getRandomLike(MIN_LIKE, MAX_LIKE),
+      likes: getRandomLike(MIN_LIKE, MAX_LIKE_COUNT),
       comments: createCommentsBlock(MAX_COMMENT_COUNT),
     });
   }
+  return PHOTOCARD_ARRAY;
 }
 
 setPhotocardData(MAX_PHOTOCARD_AMOUNT);
+console.table(PHOTOCARD_ARRAY);
