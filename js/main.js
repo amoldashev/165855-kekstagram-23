@@ -85,7 +85,6 @@ function getRandomName(MAX_NAME_COUNT) {
 // Создает массив комментарий
 let commentsArrays = [];
 function createCommentsBlock(MAX_COMMENT_COUNT) {
-  
   for (let commentsIdNumber = 1; commentsIdNumber <= MAX_COMMENT_COUNT; commentsIdNumber++) {
     commentsArrays.push ({
       id: commentsIdNumber,
@@ -112,4 +111,3 @@ function setPhotocardData(MAX_PHOTOCARD_AMOUNT) {
 }
 
 setPhotocardData(MAX_PHOTOCARD_AMOUNT);
-console.table(PHOTOCARD_ARRAY);
