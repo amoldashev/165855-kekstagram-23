@@ -33,6 +33,25 @@ const NAMES_ARRAY = [
   'Вазовски',
 ];
 
+
+
+const getRandomPositiveInt = (min, max) =>
+  min >= 0 && min < max
+    ? ~~(min + Math.random() * (max - min + 1))
+    : null
+
+
+
+const getRandomElFromArr = (arr) =>
+  arr.length
+    ? arr.splice(getRandomInt(0, arr.length), 1)
+    : null
+
+getRandomElFromArr(MESSAGE_ARRAY) {
+  return getRandomPositiveInt(min, max);
+};
+getRandomElFromArr(MESSAGE_ARRAY)
+
 // Вызывает случайную цитату
 
 let descriptionIndex;
