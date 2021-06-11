@@ -1,10 +1,7 @@
 const ERROR_MESSAGE = 'message';
-const MAX_COMMENT_COUNT = 6;
-const MAX_MESSAGE_COUNT = 6;
-const MAX_NAME_COUNT = 6;
+
 const MAX_LIKE_COUNT = 2000;
 const MIN_LIKE = 0;
-const RANDOM_LIKE = 0;
 const MAX_PHOTOCARD_AMOUNT = 25;
 
 const MESSAGE_ARRAY = [
@@ -33,100 +30,78 @@ const NAMES_ARRAY = [
   'Вазовски',
 ];
 
-
-
+// Получение случайного числа
+const min = 1;
+const max = 10;
 const getRandomPositiveInt = (min, max) =>
   min >= 0 && min < max
     ? ~~(min + Math.random() * (max - min + 1))
     : null
 
-
+// Получение случайного элемента
 
 const getRandomElFromArr = (arr) =>
   arr.length
-    ? arr.splice(getRandomInt(0, arr.length), 1)
+    ? arr.splice(getRandomPositiveInt(0, arr.length - 1), 1)
     : null
+    
+// Вызывает случайную цитату из массива сообщений
 
-getRandomElFromArr(MESSAGE_ARRAY) {
-  return getRandomPositiveInt(min, max);
-};
-getRandomElFromArr(MESSAGE_ARRAY)
-
-// Вызывает случайную цитату
-
-let descriptionIndex;
-
-function getRandomQuote() {
-  descriptionIndex = Math.floor(Math.random()*QUOTES_ARRAY.length);
-  return QUOTES_ARRAY[descriptionIndex];
+function getRandomQuote(MESSAGE_ARRAY) {
+  return getRandomElFromArr(MESSAGE_ARRAY);
 }
 
 // Выставляет случайное число лайков
 
-let randomLike;
-
 function getRandomLike(MIN_LIKE, MAX_LIKE_COUNT) {
-  randomLike = Math.floor(Math.random() * (MAX_LIKE_COUNT - MIN_LIKE)) + MIN_LIKE;
-
-  if (RANDOM_LIKE >= 0, MAX_LIKE_COUNT >= MIN_LIKE) {
-    MIN_LIKE = Math.ceil(MIN_LIKE);
-    MAX_LIKE_COUNT = Math.floor(MAX_LIKE_COUNT);
-  } else {
-    throw new Error(ERROR_MESSAGE);
-  }
-  return randomLike;
-}
-
-// Вызывает случайное сообщение
-
-function createRandomMessage(MAX_MESSAGE_COUNT) {
-  let randomMessageArrays = [];
-  let messageIndex = 0;
-  for (let messageCount = 0; messageCount < MAX_MESSAGE_COUNT; messageCount++) {
-    messageIndex = Math.floor(Math.random()*MESSAGE_ARRAY.length);
-    randomMessageArrays.push(MESSAGE_ARRAY[messageIndex]);
-    return randomMessageArrays.toString();
-  }
+  return getRandomPositiveInt(MIN_LIKE, MAX_LIKE_COUNT);
 }
 
 // Добавляет случайное имя
 
-function getRandomName(MAX_NAME_COUNT) {
-  let randomNameArrays = [];
-  let nameIndex = 0;
-  for (let nameCount = 1; nameCount < MAX_NAME_COUNT; nameCount++) {
-    nameIndex = Math.floor(Math.random()*NAMES_ARRAY.length);
-    randomNameArrays.push(NAMES_ARRAY[nameIndex]);
-    return randomNameArrays.toString();
-  }
+function getRandomName(NAMES_ARRAY) {
+  return getRandomElFromArr(NAMES_ARRAY);
 }
+
+// Описание картинки
+
+const DESCRIPTION_TITLE = 'Краткое описание';
+
 
 // Создает массив комментарий
-let commentsArrays = [];
-function createCommentsBlock(MAX_COMMENT_COUNT) {
-  for (let commentsIdNumber = 1; commentsIdNumber <= MAX_COMMENT_COUNT; commentsIdNumber++) {
-    commentsArrays.push ({
+
+const MIN_COMMENT_COUNT = 1;
+const MAX_COMMENT_COUNT = 6;
+
+
+function createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT) {
+  const COMMENTS_ARRAY = [];
+  for (let commentsIdNumber = MIN_COMMENT_COUNT; commentsIdNumber <= MAX_COMMENT_COUNT; commentsIdNumber++) {
+    COMMENTS_ARRAY.push ({
       id: commentsIdNumber,
-      avatar: `img/avatar-${{commentsIdNumber}}.svg`,
-      message: createRandomMessage(),
-      name: getRandomName(MAX_NAME_COUNT),
+      avatar: `img/avatar-${commentsIdNumber}.svg`,
+      message: getRandomQuote(MESSAGE_ARRAY),
+      name: getRandomName(NAMES_ARRAY),
     });
   }
+  return COMMENTS_ARRAY;
 }
+// console.table(createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT))
+// // Создает массив фотокарточек
 
-// Создает массив карточек
 const PHOTOCARD_ARRAY = [];
-function setPhotocardData(MAX_PHOTOCARD_AMOUNT) {
+
+function setsPhotocardData(MAX_PHOTOCARD_AMOUNT) {
   for (let idNumber = 1; idNumber <= MAX_PHOTOCARD_AMOUNT; idNumber++) {
     PHOTOCARD_ARRAY.push ({
       id: idNumber,
-      url: `photos/${{idNumber}}.jpg`,
-      description: getRandomQuote(),
+      url: `photos/${idNumber}.jpg`,
+      description: DESCRIPTION_TITLE,
       likes: getRandomLike(MIN_LIKE, MAX_LIKE_COUNT),
-      comments: createCommentsBlock(MAX_COMMENT_COUNT),
+      comments: createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT),
     });
   }
   return PHOTOCARD_ARRAY;
 }
-
-setPhotocardData(MAX_PHOTOCARD_AMOUNT);
+setsPhotocardData(MAX_PHOTOCARD_AMOUNT)
+console.table(setsPhotocardData(MAX_PHOTOCARD_AMOUNT))
