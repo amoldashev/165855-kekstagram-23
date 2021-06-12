@@ -1,8 +1,20 @@
-const ERROR_MESSAGE = 'message';
+// Получение случайного числа
 
-const MAX_LIKE_COUNT = 2000;
-const MIN_LIKE = 0;
-const MAX_PHOTOCARD_AMOUNT = 25;
+const getRandomPositiveInt = (min, max) =>
+  min >= 0 && min < max
+    ? ~~(min + Math.random() * (max - min + 1))
+    : null;
+
+getRandomPositiveInt(0, 1);
+
+// Получение случайного элемента
+
+const getRandomElFromArr = (arr) =>
+  arr.length
+    ? arr.splice(getRandomPositiveInt(0, arr.length - 1), 1)
+    : null;
+
+// Вызывает случайную цитату из массива сообщений
 
 const MESSAGE_ARRAY = [
   'Всё отлично!',
@@ -13,13 +25,20 @@ const MESSAGE_ARRAY = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const QUOTES_ARRAY = [
-  'Кекстаграммная котейка',
-  'Блудливый котян',
-  'Ночной пуритан',
-  'Предсказуемый кот-жрец',
-  'Развратный жмурик',
-];
+function getRandomMessage(MESSAGE_ARRAY) {
+  return getRandomElFromArr(MESSAGE_ARRAY);
+}
+
+// Выставляет случайное число лайков
+
+const MAX_LIKE_COUNT = 2000;
+const MIN_LIKE = 0;
+
+function getRandomLike(MIN_LIKE, MAX_LIKE_COUNT) {
+  return getRandomPositiveInt(MIN_LIKE, MAX_LIKE_COUNT);
+}
+
+// Добавляет случайное имя
 
 const NAMES_ARRAY = [
   'Антуан',
@@ -30,43 +49,68 @@ const NAMES_ARRAY = [
   'Вазовски',
 ];
 
-// Получение случайного числа
-const min = 1;
-const max = 10;
-const getRandomPositiveInt = (min, max) =>
-  min >= 0 && min < max
-    ? ~~(min + Math.random() * (max - min + 1))
-    : null
-
-// Получение случайного элемента
-
-const getRandomElFromArr = (arr) =>
-  arr.length
-    ? arr.splice(getRandomPositiveInt(0, arr.length - 1), 1)
-    : null
-    
-// Вызывает случайную цитату из массива сообщений
-
-function getRandomQuote(MESSAGE_ARRAY) {
-  return getRandomElFromArr(MESSAGE_ARRAY);
-}
-
-// Выставляет случайное число лайков
-
-function getRandomLike(MIN_LIKE, MAX_LIKE_COUNT) {
-  return getRandomPositiveInt(MIN_LIKE, MAX_LIKE_COUNT);
-}
-
-// Добавляет случайное имя
-
 function getRandomName(NAMES_ARRAY) {
   return getRandomElFromArr(NAMES_ARRAY);
 }
 
 // Описание картинки
 
-const DESCRIPTION_TITLE = 'Краткое описание';
+const QUOTES_ARRAY = [
+  'Кекстаграммная котейка',
+  'Блудливый котян',
+  'Ночной пуритан',
+  'Предсказуемый жрец',
+  'Развратный жмурик',
+  'Неистовый фрик',
+  'Печальный брокер',
+  'Условный знак',
+  'Кекстаграммная котейка',
+  'Блудливый котян',
+  'Ночной пуритан',
+  'Предсказуемый жрец',
+  'Развратный жмурик',
+  'Неистовый фрик',
+  'Печальный брокер',
+  'Условный знак',
+  'Кекстаграммная котейка',
+  'Блудливый котян',
+  'Ночной пуритан',
+  'Предсказуемый жрец',
+  'Развратный жмурик',
+  'Неистовый фрик',
+  'Печальный брокер',
+  'Условный знак',
+  'Кекстаграммная котейка',
+  'Блудливый котян',
+  'Ночной пуритан',
+  'Предсказуемый жрец',
+  'Развратный жмурик',
+  'Неистовый фрик',
+  'Печальный брокер',
+  'Условный знак',
+  'Кекстаграммная котейка',
+  'Блудливый котян',
+  'Ночной пуритан',
+  'Предсказуемый жрец',
+  'Развратный жмурик',
+  'Неистовый фрик',
+  'Печальный брокер',
+  'Условный знак',
+  'Кекстаграммная котейка',
+  'Блудливый котян',
+  'Ночной пуритан',
+  'Предсказуемый жрец',
+  'Развратный жмурик',
+  'Неистовый фрик',
+  'Печальный брокер',
+  'Условный знак',
+  'Развратный жмурик',
+  'Неистовый фрик',
+];
 
+function getRandomQuote(QUOTES_ARRAY) {
+  return getRandomElFromArr(QUOTES_ARRAY);
+}
 
 // Создает массив комментарий
 
@@ -80,15 +124,16 @@ function createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT) {
     COMMENTS_ARRAY.push ({
       id: commentsIdNumber,
       avatar: `img/avatar-${commentsIdNumber}.svg`,
-      message: getRandomQuote(MESSAGE_ARRAY),
+      message: getRandomMessage(MESSAGE_ARRAY),
       name: getRandomName(NAMES_ARRAY),
     });
   }
   return COMMENTS_ARRAY;
 }
-// console.table(createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT))
+console.table(createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT))
 // // Создает массив фотокарточек
 
+const MAX_PHOTOCARD_AMOUNT = 25;
 const PHOTOCARD_ARRAY = [];
 
 function setsPhotocardData(MAX_PHOTOCARD_AMOUNT) {
@@ -96,12 +141,14 @@ function setsPhotocardData(MAX_PHOTOCARD_AMOUNT) {
     PHOTOCARD_ARRAY.push ({
       id: idNumber,
       url: `photos/${idNumber}.jpg`,
-      description: DESCRIPTION_TITLE,
+      description: getRandomQuote(QUOTES_ARRAY),
       likes: getRandomLike(MIN_LIKE, MAX_LIKE_COUNT),
       comments: createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT),
     });
   }
   return PHOTOCARD_ARRAY;
 }
-setsPhotocardData(MAX_PHOTOCARD_AMOUNT)
-console.table(setsPhotocardData(MAX_PHOTOCARD_AMOUNT))
+setsPhotocardData(MAX_PHOTOCARD_AMOUNT);
+
+console.table(setsPhotocardData(MAX_PHOTOCARD_AMOUNT));
+
