@@ -116,10 +116,10 @@ function getRandomQuote(QUOTES_ARRAY) {
 
 const MIN_COMMENT_COUNT = 1;
 const MAX_COMMENT_COUNT = 6;
-
+const COMMENTS_ARRAY = [];
 
 function createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT) {
-  const COMMENTS_ARRAY = [];
+
   for (let commentsIdNumber = MIN_COMMENT_COUNT; commentsIdNumber <= MAX_COMMENT_COUNT; commentsIdNumber++) {
     COMMENTS_ARRAY.push ({
       id: commentsIdNumber,
@@ -130,7 +130,8 @@ function createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT) {
   }
   return COMMENTS_ARRAY;
 }
-console.table(createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT))
+
+console.table(createCommentsArr(MIN_COMMENT_COUNT, MAX_COMMENT_COUNT));
 // // Создает массив фотокарточек
 
 const MAX_PHOTOCARD_AMOUNT = 25;
@@ -148,7 +149,8 @@ function setsPhotocardData(MAX_PHOTOCARD_AMOUNT) {
   }
   return PHOTOCARD_ARRAY;
 }
+setsPhotocardData.push
+
 setsPhotocardData(MAX_PHOTOCARD_AMOUNT);
 
 console.table(setsPhotocardData(MAX_PHOTOCARD_AMOUNT));
-
