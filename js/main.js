@@ -72,7 +72,7 @@ const createComment = (param) => new Array(param).fill(null).map((comment, index
 
 const MAX_PHOTOCARD_AMOUNT = 25;
 
-const setPhoto = (param) => new Array(param).fill(null).map((photocard, index) => ({
+const setPhotocard = (param) => new Array(param).fill(null).map((photocard, index) => ({
     id: index + 1,
     description: DESCRIPTION_ARRAY[getRandomNumber(1, DESCRIPTION_ARRAY.length - 1)],
     likes: getRandomNumber(MIN_LIKE, MAX_LIKE_COUNT),
@@ -80,5 +80,4 @@ const setPhoto = (param) => new Array(param).fill(null).map((photocard, index) =
   })
 );
 
-setPhoto(MAX_PHOTOCARD_AMOUNT);
-console.table(setPhoto(MAX_PHOTOCARD_AMOUNT))
+setPhotocard(MAX_PHOTOCARD_AMOUNT);
