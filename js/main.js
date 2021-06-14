@@ -54,23 +54,22 @@ const DESCRIPTION_ARRAY = [
 const MIN_RANDOM_ID = 1;
 const MAX_RANDOM_ID = 6;
 
-const createComment = (param) => new Array(param).fill(null).map((comment, index) => ({
+const createComment = (param) => new Array(param).fill(null).map(() => ({
   id: getRandomNumber(1, 25),
   avatar: `img/avatar-${ getRandomNumber(MIN_RANDOM_ID, MAX_RANDOM_ID) }.svg`,
   message: MESSAGE_ARRAY[getRandomNumber(1, MESSAGE_ARRAY.length - 1)],
   name: NAMES_ARRAY[getRandomNumber(1, NAMES_ARRAY.length - 1)],
-}))
+}));
 
 // Создает массив фотокарточек
 
 const MAX_PHOTOCARD_AMOUNT = 25;
 
 const setPhotocard = (param) => new Array(param).fill(null).map((photocard, index) => ({
-    id: index + 1,
-    description: DESCRIPTION_ARRAY[getRandomNumber(1, DESCRIPTION_ARRAY.length - 1)],
-    likes: getRandomNumber(MIN_LIKE, MAX_LIKE_COUNT),
-    comments: createComment(),
-  })
-);
+  id: index + 1,
+  description: DESCRIPTION_ARRAY[getRandomNumber(1, DESCRIPTION_ARRAY.length - 1)],
+  likes: getRandomNumber(MIN_LIKE, MAX_LIKE_COUNT),
+  comments: createComment(),
+}));
 
 setPhotocard(MAX_PHOTOCARD_AMOUNT);
