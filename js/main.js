@@ -5,13 +5,6 @@ const getRandomPositiveInt = (min, max) =>
     ? ~~(min + Math.random() * (max - min + 1))
     : null;
 
-// Получение случайного элемента
-
-const getRandomElFromArr = (arr) =>
-  arr.length
-    ? arr.splice(getRandomPositiveInt(0, arr.length - 1), 1)
-    : null;
-
 // Массив сообщений
 
 const MESSAGE_ARRAY = [
