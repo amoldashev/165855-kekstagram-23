@@ -56,17 +56,13 @@ const DESCRIPTION_ARRAY = [
   'Условный знак',
 ];
 
-// Создает случайное число для id
+// Создает массив комментарий
 
 const MIN_RANDOM_ID = 1;
 const MAX_RANDOM_ID = 6;
 
-// Создает массив комментарий
-
-const COMMENT_OF_ID = 6;
-const INDEX_OF_ID = 6;
-const createComment = (param) => new Array(param).fill(null).map((COMMENT_OF_ID, INDEX_OF_ID) => ({
-  id: INDEX_OF_ID + 1,
+const createComment = (param) => new Array(param).fill(null).map((comment, index) => ({
+  id: getRandomNumber(1, 25),
   avatar: `img/avatar-${ getRandomNumber(MIN_RANDOM_ID, MAX_RANDOM_ID) }.svg`,
   message: MESSAGE_ARRAY[getRandomNumber(1, MESSAGE_ARRAY.length - 1)],
   name: NAMES_ARRAY[getRandomNumber(1, NAMES_ARRAY.length - 1)],
