@@ -5,8 +5,6 @@ const getRandomPositiveInt = (min, max) =>
     ? ~~(min + Math.random() * (max - min + 1))
     : null;
 
-getRandomPositiveInt(0, 1);
-
 // Получение случайного элемента
 
 const getRandomElFromArr = (arr) =>
@@ -14,7 +12,7 @@ const getRandomElFromArr = (arr) =>
     ? arr.splice(getRandomPositiveInt(0, arr.length - 1), 1)
     : null;
 
-// Вызывает случайную цитату из массива сообщений
+// Массив сообщений
 
 const MESSAGE_ARRAY = [
   'Всё отлично!',
@@ -24,10 +22,6 @@ const MESSAGE_ARRAY = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
-
-function getRandomMessage(arr) {
-  return getRandomElFromArr(arr);
-}
 
 // Выставляет случайное число лайков
 
@@ -49,10 +43,6 @@ const NAMES_ARRAY = [
   'Вазовски',
 ];
 
-function getRandomName(arr) {
-  return getRandomElFromArr(arr);
-}
-
 // Описание картинки
 
 const DESCRIPTION_ARRAY = [
@@ -66,68 +56,33 @@ const DESCRIPTION_ARRAY = [
   'Условный знак',
 ];
 
-function getRandomDescription(arr) {
-  return getRandomElFromArr(arr);
-}
-
-
 // Создает случайное число для id
 
 const MIN_RANDOM_ID = 1;
 const MAX_RANDOM_ID = 6;
 
-
 // Создает массив комментарий
 
-const MIN_COMMENT_COUNT = 1;
-const MAX_COMMENT_COUNT = 6;
-const COMMENTS_ARRAY = [];
+const COMMENT_OF_ID = 6;
+const INDEX_OF_ID = 6;
+const createComment = (param) => new Array(param).fill(null).map((COMMENT_OF_ID, INDEX_OF_ID) => ({
+  id: INDEX_OF_ID + 1,
+  avatar: `img/avatar-${ getRandomNumber(MIN_RANDOM_ID, MAX_RANDOM_ID) }.svg`,
+  message: MESSAGE_ARRAY[getRandomNumber(1, MESSAGE_ARRAY.length - 1)],
+  name: NAMES_ARRAY[getRandomNumber(1, NAMES_ARRAY.length - 1)],
+}))
 
-function createCommentsArr(min, max) {
-  for (let commentsIdNumber = min; commentsIdNumber <= max; commentsIdNumber++) {
-    COMMENTS_ARRAY.push ({
-      id: commentsIdNumber,
-      avatar: `img/avatar-${ getRandomNumber(MIN_RANDOM_ID, MAX_RANDOM_ID) }.svg`,
-      message: getRandomMessage(MESSAGE_ARRAY),
-      name: getRandomName(NAMES_ARRAY),
-    });
-  }
-  return COMMENTS_ARRAY;
-}
-
-// Наполнение методом map
-
-// const createComment = function (arrayIndex, index) {
-//   const commentsIdNumber = index + 1;
-//   return {
-//     id: commentsIdNumber,
-//     avatar: `img/avatar-${ getRandomNumber(MIN_RANDOM_ID, MAX_RANDOM_ID) }.svg`,
-//     message: getRandomMessage(MESSAGE_ARRAY),
-//     name: getRandomName(NAMES_ARRAY),
-//   };
-// };
-// console.table(createComment(6, 0));
 // Создает массив фотокарточек
-//
-// const getNewComments = () => COMMENTS_ARRAY.map(createCommentsArr(1, 6));
 
 const MAX_PHOTOCARD_AMOUNT = 25;
-const PHOTOCARD_ARRAY = [];
 
-function setsPhotocardData(param) {
+const setPhoto = (param) => new Array(param).fill(null).map((photocard, index) => ({
+    id: index + 1,
+    description: DESCRIPTION_ARRAY[getRandomNumber(1, DESCRIPTION_ARRAY.length - 1)],
+    likes: getRandomNumber(MIN_LIKE, MAX_LIKE_COUNT),
+    comments: createComment(),
+  })
+);
 
-  for (let idNumber = 1; idNumber <= param; idNumber++) {
-    PHOTOCARD_ARRAY.push ({
-      id: idNumber,
-      description: getRandomDescription(DESCRIPTION_ARRAY),
-      likes: getRandomNumber(MIN_LIKE, MAX_LIKE_COUNT),
-      comments: getRandomElFromArr(createCommentsArr(1, 25)),
-    });
-  }
-  return PHOTOCARD_ARRAY;
-}
-
-console.table(setsPhotocardData(MAX_PHOTOCARD_AMOUNT));
-//
-// new Array(getRandomInteger(1, MAX_PHOTO_COMMENTS)).fill(null).map(createComment)
-
+setPhoto(MAX_PHOTOCARD_AMOUNT);
+console.table(setPhoto(MAX_PHOTOCARD_AMOUNT))
