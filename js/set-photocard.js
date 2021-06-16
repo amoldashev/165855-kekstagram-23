@@ -1,17 +1,10 @@
-// Создает массив фотокарточек
+import { DESCRIPTION_ARRAY } from './data.js';
+import { MIN_LIKE, MAX_LIKE_COUNT } from './parameters.js';
+import { getRandomNumber } from './get-random-number.js';
+import { createComment } from './create-comment.js';
 
-const MAX_PHOTOCARD_AMOUNT = 25;
 
-const DESCRIPTION_ARRAY = [
-  'Кекстаграммная котейка',
-  'Блудливый котян',
-  'Ночной пуритан',
-  'Предсказуемый жрец',
-  'Развратный жмурик',
-  'Неистовый фрик',
-  'Печальный брокер',
-  'Условный знак',
-];
+//  Функция возврата фотокарточек
 
 const setPhotocard = (param) => new Array(param).fill(null).map((photocard, index) => ({
   id: index + 1,
@@ -20,4 +13,5 @@ const setPhotocard = (param) => new Array(param).fill(null).map((photocard, inde
   comments: createComment(),
 }));
 
-export {MAX_PHOTOCARD_AMOUNT, DESCRIPTION_ARRAY, setPhotocard};
+
+export { setPhotocard };

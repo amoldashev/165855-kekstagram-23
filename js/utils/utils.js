@@ -5,4 +5,4 @@ const getRandomPositiveInt = (min, max) =>
     ? ~~(min + Math.random() * (max - min + 1))
     : null;
 
-export {getRandomPositiveInt};
+export { getRandomPositiveInt };
