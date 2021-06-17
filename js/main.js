@@ -1,5 +1,5 @@
 import { setPhotocard } from './set-photocard.js';
-import { MAX_PHOTOCARD_AMOUNT } from './parameters.js';
+import { MAX_PHOTOCARD_AMOUNT } from './data.js';
 import './create-comment.js';
 import './get-random-number.js';
 
