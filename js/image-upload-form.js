@@ -1,24 +1,24 @@
 // 2. Пропишите тегу <form> правильные значения атрибутов method и адрес action для отправки формы на сервер.
 const imageUploadForm = document.querySelector('#upload-select-image');
 
-// Функция изменения метода отправки формы
-const setMethod = () => imageUploadForm.method = 'get';
+// Функция изменяет метод отправки формы
+const setMethod = () => imageUploadForm.method = 'post';
+
 // Функция назначает атрибуту action адрес отправки формы
 const setAction = () => imageUploadForm.action = 'https://23.javascript.pages.academy/kekstagram';
 
-// console.log(setAction());
-// console.log(imageUploadForm.action);
 // 3. Проверьте разметку вашего проекта и добавьте недостающие атрибуты.
 // Например, всем обязательным полям нужно добавить атрибут required.
-/* Устанавливает required для всех инпутов (временно) */
 const inputList = document.querySelectorAll('input');
-const inputAttributes = inputList.NamedNodeMap;
-const setRequiredAttr = () => inputAttrList.NamedNodeMap = 'required';
+
+// const inputScaleControl = document.querySelector('input.scale__control'); // К примеру
+// const scaleControlAttr = inputScaleControl.setAttribute("required", ""); // К примеру
+console.log(inputList);
+// Ни одному инпуту кроме input.upload-file не нужно задавать required. По умолчанию, указан required.
+
 // Затем проверьте, правильные ли типы стоят у нужных полей, если нет — проставьте правильные
-// const inputTypeList = document.querySelectorAll('input').NameNodeMap;
-// console.log(setRequiredAttr());
-
-
+const hashtag = document.querySelector('input.text__hashtags');
+hashtag.type = 'text';
 // 4. Изучите, что значит загрузка изображения, и как, когда и каким образом
 // показывается форма редактирования изображения. Напишите код и добавьте необходимые
 // обработчики для реализации этого пункта техзадания. В работе вы можете опираться
@@ -34,8 +34,8 @@ const setRequiredAttr = () => inputAttrList.NamedNodeMap = 'required';
 // Значение других полей формы также нужно сбрасывать.
 const uploadFile = document.querySelector('#upload-file');
 const showUploadFile = () => uploadFile.classList.remove('visually-hidden');
-showUploadFile()
-console.log(uploadFile);
+
+// console.log();
 // 6. Напишите код для валидации формы добавления изображения. Список полей для валидации:
 
 // Хэш-теги
