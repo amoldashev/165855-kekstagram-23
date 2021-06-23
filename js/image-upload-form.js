@@ -1,9 +1,9 @@
 // 2. Пропишите тегу <form> правильные значения атрибутов method и адрес action для отправки формы на сервер.
 // Форма загрузки
-const UploadSelectImage = document.querySelector('#upload-select-image');
+const uploadSelectImage = document.querySelector('#upload-select-image');
 
 // Поле загрузки файлов
-const inputUploadFile = UploadSelectImage.querySelector('#upload-file');
+const inputUploadFile = uploadSelectImage.querySelector('#upload-file');
 
 // Функция изменяет метод отправки формы
 // const setMethod = () => UploadSelectImage.method = 'post';
@@ -36,7 +36,7 @@ const body = document.querySelector('body');
 const uploadCancel = document.querySelector('#upload-cancel');
 
 // EventListener во время изменения состояния поля загрузки файла
-UploadSelectImage.addEventListener(
+uploadSelectImage.addEventListener(
   'change',
   () => {
     imgUploadOverlay.classList.remove('hidden');
@@ -46,7 +46,7 @@ UploadSelectImage.addEventListener(
 
 // 5. После реализуйте закрытие формы.
 
-// при закрытии формы дополнительно необходимо сбрасывать значение поля выбора файла
+// TODO:при закрытии формы дополнительно необходимо сбрасывать значение поля выбора файла
 // #upload-file. В принципе, всё будет работать, если при повторной попытке загрузить
 // в поле другую фотографию. Но! Событие change не сработает, если пользователь попробует
 // загрузить ту же фотографию, а значит окно с формой не отобразится, что будет нарушением техзадания.
@@ -74,34 +74,64 @@ uploadCancel.addEventListener(
   },
 );
 
-// 6. Напишите код для валидации формы добавления изображения. Список полей для валидации:
+
+// 6. TODO:Напишите код для валидации формы добавления изображения. Список полей для валидации:
 // Хэш-теги
-const inputTextHashtags = UploadSelectImage.querySelector('input.text__hashtags');
-const inputTextDescription = UploadSelectImage.querySelector('.text__description');
+const inputTextHashtags = uploadSelectImage.querySelector('input.text__hashtags');
+const inputTextDescription = uploadSelectImage.querySelector('.text__description');
 
 const MIN_HASHTAG_LENGTH = 2;
 const MAX_HASHTAG_LENGTH = 20;
 
+// var str = 'АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЬЫЪЭЮЯабвгдеёжзийклмнопрстуфхцчшщьыъэюя';
+// var regexp = /[А-Д]/gi;
+// var matches_array = str.match(regexp);
+// console.log(matches_array);
+
+// RegEx
+// \D - числа [^0-9]
+// [\s] - whitespace
+// [[:punct:]] - punctuation
+// [\W] symbols
+// [pattern, flags] flag - i => игнорирование регистра
+
+// new RegExp('', 'i')
+
+// TODO:Проверка наличия хештега
 inputTextHashtags.addEventListener(
   'input',
   () => {
-    const valueLength = inputTextHashtags.value.length;
-    if (valueLength < MIN_HASHTAG_LENGTH) {
-      inputTextHashtags.setCustomValidity(`Еще ${MIN_HASHTAG_LENGTH - valueLength} символ`);
-    } else if (valueLength > MAX_HASHTAG_LENGTH) {
-      inputTextHashtags.setCustomValidity(`Удалите еще ${valueLength - MAX_HASHTAG_LENGTH} симв.`);
-    } else {
-      inputTextHashtags.setCustomValidity('');
+    const inputHashtagsValue = inputTextHashtags.value;
+    if (inputHashtagsValue[0] !== '#') {
+      inputHashtagsValue.setCustomValidity('Хэштег должен начинаться с решетки');
     }
-    inputTextHashtags.reportValidity();
   },
+  // () => {
+  //   const valueLength = inputTextHashtags.value.length;
+
+  //   if (valueLength < MIN_HASHTAG_LENGTH) {
+  //     inputTextHashtags.setCustomValidity(`Еще ${MIN_HASHTAG_LENGTH - valueLength} символ.`);
+  //   } else if (valueLength > MAX_HASHTAG_LENGTH) {
+  //     inputTextHashtags.setCustomValidity(`Удалите еще ${valueLength - MAX_HASHTAG_LENGTH} симв.`);
+  //   } else {
+  //     inputTextHashtags.setCustomValidity('');
+  //   }
+  //   inputTextHashtags.reportValidity();
+  // },
+  // () => {
+  //   const expression = /^#[A-Za-zА-Яа-я0-9]{1,19}$/; // Пытаюсь использовать regexp
+  //   if (expression.test(inputTextHashtags.value)) {
+  //     inputTextHashtags.setCustomValidity('Все хорошо!');
+  //   }
+  //   return false;
+  // },
 );
 
-function validateFirstLetter(input) {
-  let re = /^[#].*/;
-  return re.test(input);
-}
-validateFirstLetter(inputTextHashtags);
+// function validateFirstLetter(input) {
+//   let re = /^[#].*/;
+//   return re.test(input);
+// }
+// validateFirstLetter(inputTextHashtags);
 // const isHashtag = () =>
 
 
@@ -139,7 +169,7 @@ validateFirstLetter(inputTextHashtags);
 
 // Комментарий
 
-// 7. Реализуйте логику проверки так, чтобы, как минимум, она срабатывала при попытке отправить форму
+// 7. TODO:Реализуйте логику проверки так, чтобы, как минимум, она срабатывала при попытке отправить форму
 // и не давала этого сделать, если форма заполнена не по правилам. При желании, реализуйте проверки
 //  сразу при вводе значения в поле.
 

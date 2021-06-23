@@ -115,7 +115,7 @@
 
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                  <input class="text__hashtags" type="text" name="hashtags" placeholder="#ХэшТег" pattern="(#)(A-Za-zА-Яа-яЁё0-9){1, 19}">
+                  <input class="text__hashtags" type="text" name="hashtags" placeholder="#ХэшТег" pattern="#^[A-Za-zА-Яа-яЁё0-9]{1, 19}" title="Укажите хэштег начиная с решетки">
                   <textarea class="text__description" type="text" name="description" placeholder="Ваш комментарий..." maxlength = "140"></textarea>
                 </fieldset>
 
