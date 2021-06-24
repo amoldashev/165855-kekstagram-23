@@ -87,7 +87,7 @@ inputTextHashtags.addEventListener(
   () => {
     const valueLength = inputTextHashtags.value.length;
     if (valueLength < MIN_HASHTAG_LENGTH) {
-      inputTextHashtags.setCustomValidity(`Еще ${MIN_HASHTAG_LENGTH - valueLength} символ`);
+      inputTextHashtags.setCustomValidity(`Еще ${MIN_HASHTAG_LENGTH - valueLength} симв.`);
     } else if (valueLength > MAX_HASHTAG_LENGTH) {
       inputTextHashtags.setCustomValidity(`Удалите еще ${valueLength - MAX_HASHTAG_LENGTH} симв.`);
     } else {
