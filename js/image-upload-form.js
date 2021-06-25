@@ -101,9 +101,13 @@ const MAX_HASHTAG_LENGTH = 20;
 inputTextHashtags.addEventListener(
   'input',
   () => {
-    const inputHashtagsValue = inputTextHashtags.value;
-    if (inputHashtagsValue[0] !== '#') {
-      inputHashtagsValue.setCustomValidity('Хэштег должен начинаться с решетки');
+    const valueLength = inputTextHashtags.value.length;
+    if (valueLength < MIN_HASHTAG_LENGTH) {
+      inputTextHashtags.setCustomValidity(`Еще ${MIN_HASHTAG_LENGTH - valueLength} симв.`);
+    } else if (valueLength > MAX_HASHTAG_LENGTH) {
+      inputTextHashtags.setCustomValidity(`Удалите еще ${valueLength - MAX_HASHTAG_LENGTH} симв.`);
+    } else {
+      inputTextHashtags.setCustomValidity('');
     }
   },
   // () => {
