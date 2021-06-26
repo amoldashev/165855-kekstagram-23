@@ -66,7 +66,7 @@ uploadCancel.addEventListener(
 uploadCancel.addEventListener(
   'keydown',
   (evt) => {
-    if (evt.keyCode === 27) { // Проверяем, что код клавиши равен 27
+    if (evt.code === 'Escape') { // Проверяем, что код клавиши равен 27
       imgUploadOverlay.classList.add('hidden');
       body.classList.remove('modal-open');
       inputUploadFile.value = '';
@@ -95,11 +95,11 @@ const matchExp = (input)  => input.value.match(RegExp);
 // currentIndex =
 const fillInputArr = (input) => {
   for (let i = 0; i <= input.value.length; i++) {
+    let a = input.value.slice(i, 1);
+    a.match(new RegExp('\W+', 'gi'));
     console.log(input.value.slice(i, 1));
   }
 };
-
-
 
 fillInputArr(inputTextHashtags);
 // Вернуть сообщение о спецсимволах
@@ -115,7 +115,7 @@ fillInputArr(inputTextHashtags);
 // console.log(RegExpArr);
 // const compareExp = (input, RegExp) => {
 // }
-
+/* ------------------------------------------------------------------------------------------ */
 // TODO:Проверка наличия хештега
 inputTextHashtags.addEventListener(
   'input',
@@ -138,15 +138,32 @@ inputTextHashtags.addEventListener(
     }
     inputTextHashtags.reportValidity();
   },
+);
 
-  // () => {
+/* ----------------------------------------------------------------------- */
+// const sentence = '#What #heck_ya what?';
+// const LETTERS_ARRAY = [];
+// const turnStrToLetters = (str, arr) => {
+//   for (let i = 0; i <= str.length; i++) {
+//     arr[i] = sentence;
+//     // LETTERS_ARRAY[i] = HashtagExp.test(sentence)
+//     if (arr.length >= true) {
+//       console.log(arr[i]);
+//     }
+//   }
+// };
+// turnStrToLetters(sentence, LETTERS_ARRAY);
+
+/* ------------------------------------------------------------------------ */
+
+// () => {
   //   const expression = /^#[A-Za-zА-Яа-я0-9]{1,19}$/; // Пытаюсь использовать regexp
   //   if (expression.test(inputTextHashtags.value)) {
   //     inputTextHashtags.setCustomValidity('Все хорошо!');
   //   }
   //   return false;
   // },
-);
+
 
 // function customValidation() {};
 
