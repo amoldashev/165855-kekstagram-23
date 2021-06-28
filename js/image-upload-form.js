@@ -1,3 +1,5 @@
+import {isEscEvent, cleanInputValue} from './utils/utils.js';
+
 // 2. Пропишите тегу <form> правильные значения атрибутов method и адрес action для отправки формы на сервер.
 // Форма загрузки
 const uploadSelectImage = document.querySelector('#upload-select-image');
@@ -5,44 +7,12 @@ const uploadSelectImage = document.querySelector('#upload-select-image');
 // Поле загрузки файлов
 const inputUploadFile = uploadSelectImage.querySelector('#upload-file');
 
-// Функция изменяет метод отправки формы
-// const setMethod = () => UploadSelectImage.method = 'post';
-// setMethod();
-
-// Функция назначает атрибуту action адрес отправки формы
-// const setAction = () => UploadSelectImage.action = 'https://23.javascript.pages.academy/kekstagram';
-// setAction();
-
-// 3. Проверьте разметку вашего проекта и добавьте недостающие атрибуты.
-// Например, всем обязательным полям нужно добавить атрибут required.
-// const inputList = document.querySelectorAll('input');
-// inputList();
-
-// Затем проверьте, правильные ли типы стоят у нужных полей, если нет — проставьте правильные
-// Ни одному инпуту кроме input.upload-file не нужно задавать required. По умолчанию, указан required.
-// const inputScaleControl = document.querySelector('input.scale__control'); // К примеру
-// const scaleControlAttr = inputScaleControl.setAttribute("required", ""); // К примеру
-// inputUploadFile.required = true;
-
-// 4. Изучите, что значит загрузка изображения, и как, когда и каким образом
-// показывается форма редактирования изображения. Напишите код и добавьте необходимые
-// обработчики для реализации этого пункта техзадания. В работе вы можете опираться
-// на код показа окна с полноразмерной фотографией, который вы, возможно, уже написали
-// в предыдущей домашней работе.
+// Модуль загрузки файлов
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
 
 /* Кнопка для закрытия формы редактирования изображения*/
-const uploadCancel = document.querySelector('#upload-cancel');
-
-// EventListener во время изменения состояния поля загрузки файла
-uploadSelectImage.addEventListener(
-  'change',
-  () => {
-    imgUploadOverlay.classList.remove('hidden');
-    body.classList.add('modal-open');
-  },
-);
+const uploadButton = document.querySelector('#upload-cancel');
 
 // 5. После реализуйте закрытие формы.
 
@@ -52,93 +22,121 @@ uploadSelectImage.addEventListener(
 // загрузить ту же фотографию, а значит окно с формой не отобразится, что будет нарушением техзадания.
 // Значение других полей формы также нужно сбрасывать.
 
-uploadCancel.addEventListener(
-  'click',
-  (evt) => {
+function openFileSelector(input) {
+  imgUploadOverlay.classList.remove('hidden');
+  body.classList.add('modal-open');
+  input.addEventListener(
+    'change',
+    onPopupEscKeydown,
+  );
+}
+
+const onPopupEscKeydown = (evt) => {
+  if (isEscEvent(evt)) {
     evt.preventDefault();
-    uploadCancel.tabIndex = '0'; // tabindex для кнопки закрытия формы редактирования
-    inputUploadFile.value = ''; // Значение поля загрузки нужно сбрасывать.
-    imgUploadOverlay.classList.add('hidden');
-    body.classList.remove('modal-open');
+    closeFileSelector(input);
+  }
+};
+
+function closeFileSelector(input) {//Удаляет обработчик
+  imgUploadOverlay.classList.add('hidden');
+  body.classList.remove('modal-open');
+  input.removeEventListener(
+    'change',
+    openFileSelector,
+  );}
+
+uploadButton.addEventListener(// Добавляет событие на клик
+  'click',
+  () => {
+    openFileSelector(inputUploadFile);
+    uploadButton.tabIndex = '0'; // tabindex для кнопки закрытия формы редактирования
+    cleanInputValue(inputUploadFile); // Значение поля загрузки нужно сбрасывать.
   },
 );
 
-uploadCancel.addEventListener(
+uploadButton.removeEventListener(//Удаляет событие
+  'click',
+  () => {
+    cleanInputValue(inputUploadFile);
+    uploadButton.tabIndex = '0';
+    closeFileSelector(inputUploadFile);
+  },
+);
+
+uploadButton.addEventListener(
   'keydown',
   (evt) => {
-    if (evt.code === 'Escape') { // Проверяем, что код клавиши равен 27
-      imgUploadOverlay.classList.add('hidden');
-      body.classList.remove('modal-open');
-      inputUploadFile.value = '';
+    if (onPopupEscKeydown(evt)) { // Проверяем, что код клавиши равен 27
+      openUploadModal();
+      cleanInputValue(inputUploadFile);
     }
   },
 );
 
 // 6. TODO: Напишите код для валидации формы добавления изображения. Список полей для валидации:
 // Хэш-теги
-const inputTextHashtags = uploadSelectImage.querySelector('input.text__hashtags');
-const inputTextDescription = uploadSelectImage.querySelector('.text__description');
+// const inputTextHashtags = uploadSelectImage.querySelector('input.text__hashtags');
+// // const inputTextDescription = uploadSelectImage.querySelector('.text__description');
 
-const MIN_HASHTAG_LENGTH = 2;
-const MAX_HASHTAG_LENGTH = 20;
+// const MIN_HASHTAG_LENGTH = 2;
+// const MAX_HASHTAG_LENGTH = 20;
 
-// TODO:Regular Expressions to be used
-const HashtagExp = new RegExp('#[A-Za-zА-Яа-яЁё0-9]{1,19}', 'gi');
-const symbolsExp = new RegExp('\W+', 'gi');
+// // TODO:Regular Expressions to be used
+// const HashtagExp = new RegExp('#[A-Za-zА-Яа-яЁё0-9]{1,19}', 'gi');
+// // const symbolsExp = new RegExp('\W+', 'gi');
 
-const isRegExp = (input, RegExp) => input.value !== RegExp; // Compares str with a reg expression
-const RegExpArr = []; // Creates empty array
-const matchExp = (input)  => input.value.match(RegExp);
+// const isRegExp = (input, RegExp) => input.value !== RegExp; // Compares str with a reg expression
+// const RegExpArr = []; // Creates empty array for incoming data
+// const matchExp = (arr)  => arr.match(RegExp);
 
 // FIXME:Сравнить строку с регулярным выражением.
 // const InputArr = [];
 // currentIndex =
-const fillInputArr = (input) => {
-  for (let i = 0; i <= input.value.length; i++) {
-    let a = input.value.slice(i, 1);
-    a.match(new RegExp('\W+', 'gi'));
-    console.log(input.value.slice(i, 1));
-  }
-};
+// const fillInputArr = (input) => {
+//   for (let i = 0; i <= input.value.length; i++) {
+//     let a = input.value.slice(i, 1);
+//     a.match(new RegExp('\W+', 'gi'));
+//     console.log(input.value.slice(i, 1));
+//   }
+// };
 
-fillInputArr(inputTextHashtags);
+// fillInputArr(inputTextHashtags);
 // Вернуть сообщение о спецсимволах
 
 // const takeResultsFromExp = (input, RegExp, arr) => {
-//   RegExpArr.push(input.value);
+//   arr.push(input.value);
 //   if(input.value.length >= 1) {
-//     arr.forEach(call(_, 1, RegExpArr) {matchExp(inputTextHashtags, RegExp)});
+//     arr.forEach(matchExp(inputTextHashtags, RegExp));
 //   }
-//   return arr;
+//   return RegExpArr;
 // };
 
-// console.log(RegExpArr);
-// const compareExp = (input, RegExp) => {
-// }
+
 /* ------------------------------------------------------------------------------------------ */
 // TODO:Проверка наличия хештега
-inputTextHashtags.addEventListener(
-  'input',
-  () => {
-    const valueLength = inputTextHashtags.value.length;
-    if (inputTextHashtags.value.substr(0, 1) !== '#') {
-      inputTextHashtags.setCustomValidity('Начните вводить хэштег со знака решетка');
-    } else if (inputTextHashtags.value.length >= 1) { // Вернуть истину для регВыражения
-      takeResultsFromExp(inputTextHashtags, HashtagExp);
-      if (RegExpArr.length > 0) {
-        inputTextHashtags.setCustomValidity('Contains special symbols');
-      }
-      inputTextHashtags.setCustomValidity('Спец. символы не допустимы');
-    } else if (valueLength < MIN_HASHTAG_LENGTH) {
-      inputTextHashtags.setCustomValidity(`Еще ${MIN_HASHTAG_LENGTH - valueLength} симв.`);
-    } else if (valueLength > MAX_HASHTAG_LENGTH) {
-      inputTextHashtags.setCustomValidity(`Удалите еще ${valueLength - MAX_HASHTAG_LENGTH} симв.`);
-    } else {
-      inputTextHashtags.setCustomValidity('');
-    }
-    inputTextHashtags.reportValidity();
-  },
-);
+// inputTextHashtags.addEventListener(
+//   'input',
+//   () => {
+//     const valueLength = inputTextHashtags.value.length;
+//     if (inputTextHashtags.value.substr(0, 1) !== '#') {
+//       inputTextHashtags.setCustomValidity('Начните вводить хэштег со знака решетка');
+//     } else if (inputTextHashtags.value.length >= 1) { // Вернуть истину для регВыражения
+//       takeResultsFromExp(inputTextHashtags, HashtagExp, RegExpArr);
+//       if (RegExpArr.length > 0) {
+//         inputTextHashtags.setCustomValidity('Contains special symbols');
+//       }
+//       inputTextHashtags.setCustomValidity('Спец. символы не допустимы');
+//     } else if (valueLength < MIN_HASHTAG_LENGTH) {
+//       inputTextHashtags.setCustomValidity(`Еще ${MIN_HASHTAG_LENGTH - valueLength} симв.`);
+//     } else if (valueLength > MAX_HASHTAG_LENGTH) {
+//       inputTextHashtags.setCustomValidity(`Удалите еще ${valueLength - MAX_HASHTAG_LENGTH} симв.`);
+//     } else {
+//       inputTextHashtags.setCustomValidity('');
+//     }
+//     inputTextHashtags.reportValidity();
+//   },
+// );
 
 /* ----------------------------------------------------------------------- */
 // const sentence = '#What #heck_ya what?';
