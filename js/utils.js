@@ -10,5 +10,13 @@ const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 const isEnter = (evt) => evt.key === 'Enter';
 // Сбрасывает значение инпута
 const cleanInputValue = (input) => input.value = '';
+// Вычисляет длину строки поля
+const getValueLength = (input) => input.value.length;
 
-export {getRandomPositiveInt, isEscEvent, cleanInputValue, isEnter};
+export {
+  getRandomPositiveInt,
+  isEscEvent,
+  cleanInputValue,
+  isEnter,
+  getValueLength
+};
