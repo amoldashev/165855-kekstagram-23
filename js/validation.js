@@ -1,8 +1,6 @@
 
 // 6. TODO: Напишите код для валидации формы добавления изображения. Список полей для валидации:
 
-const { get } = require("browser-sync");
-
 // Хэш-теги
 const inputTextHashtags = document.querySelector('.text__hashtags');
 // const formUpload = document.querySelector('#upload-select-image');
@@ -35,62 +33,42 @@ const validity = {
 const isHashtagFirst = (input) => input.value.substr(0, 1) === '#';
 const valueLength = (input) => input.value.length;
 
-const pushUniqueHashtags = (input) => {
-  const uniqueSet = new Set();
-  return uniqueSet.add(input.value.toLowerCase().trim().split(' ').filter((hashtag) => hashtag)); // Взять хэштег из инпута
-};
-
 const isSpaceAfterHash = (input) => input.value.test(/#+\s/);
 const isHashAfterSpace = (input) => input.value.test(/\s+#/);
 
-const validateHashtag = (input) => {
-  if (input.value !== '') {
-    const hashtags = pushUniqueHashtags(input);
-    hashtags.forEach((hashtag) => {
-      if (!HashtagExp.test(hashtag)) {
-        input.setCustomValidity(validity.message);
-        input.classList.add('invalid');
-        evt.preventDefault();
-      } else if (hashtags.length !== uniqueSet.size) {
-        input.setCustomValidity('Хештеги не должны повторятся');
-        input.classList.add('invalid');
-        evt.preventDefault();
-      } else {
-        input.setCustomValidity('');
-      }
-    });
-  }
-  input.reportValidity();
-};
-
-const getCustomValidation = (input) => {
-  if (input.value === '') {
-    input.setCustomValidity(validity.message);
-  } else if (isHashtagFirst(input) === false) {
+const setCustomValidation = (input) => {
+  if (isHashtagFirst(input) === false) {
     input.setCustomValidity('Начините хэштег с решетки!');
   } else if (valueLength(input) < MIN_HASHTAG_LENGTH) {
     input.setCustomValidity(`Еще ${MIN_HASHTAG_LENGTH - valueLength(input)} симв.`);
   } else if (valueLength(input) > MAX_HASHTAG_LENGTH) {
     input.setCustomValidity(`Удалите еще ${valueLength(input) - MAX_HASHTAG_LENGTH} симв.`);
-  } else if (isSpaceAfterHash) {
-    pushUniqueHashtags(input);
-    input.setCustomValidity('Введите следующий хэштег после пробела. Максимум 5');
-  } else if (isHashAfterSpace) {
-    input.setCustomValidity('Пока не понятно');
+  } else if (input.value.match(/\s/)) {
+    const uniqueSet = new Set();
+      const hashtags = uniqueSet.add(input.value.toLowerCase().trim().split(' ').filter((hashtag) => hashtag));
+      hashtags.forEach((hashtag) => {
+        if (!HashtagExp.test(hashtag)) {
+          input.setCustomValidity('Можно ввести до 5 хештегов');
+        } else if (hashtags.length !== uniqueSet.size) {
+          input.setCustomValidity('Хештеги не должны повторятся');
+          input.classList.add('invalid');
+        }
+      });
   } else {
     input.setCustomValidity('');
   }
   input.reportValidity();
 };
+
 /* ------------------------------------------------------------------------------------------ */
 // TODO:Проверка наличия хештега
 inputTextHashtags.addEventListener(
   'input',
-  () => {
-    getCustomValidation(inputTextHashtags);
-    // validateHashtag(inputTextHashtags);
+  (input) => {
+    setCustomValidation(inputTextHashtags);
   },
 );
+
 
 /* ----------------------------------------------------------------------- */
 
