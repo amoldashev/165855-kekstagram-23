@@ -70,5 +70,3 @@ uploadButton.removeEventListener(
     onPopupEscKeydown(evt);
   },
 );
-
-openUploadModal(); //TODO удалить перед PR
