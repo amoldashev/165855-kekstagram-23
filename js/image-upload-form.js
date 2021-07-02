@@ -1,4 +1,4 @@
-import {isEscEvent, cleanInputValue} from './utils/utils.js';
+import {isEscEvent, cleanInputValue} from './utils.js';
 
 const uploadSelectImage = document.querySelector('#upload-select-image');
 const inputUploadFile = uploadSelectImage.querySelector('#upload-file');
@@ -70,5 +70,3 @@ uploadButton.removeEventListener(
     onPopupEscKeydown(evt);
   },
 );
-
-openUploadModal(); //TODO удалить перед PR

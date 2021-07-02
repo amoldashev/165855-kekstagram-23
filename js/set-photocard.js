@@ -1,5 +1,5 @@
 import { DESCRIPTION_ARRAY, MIN_LIKE, MAX_LIKE_COUNT } from './data.js';
-import { getRandomPositiveInt } from './utils/utils.js';
+import { getRandomPositiveInt } from './utils.js';
 import { createComment } from './create-comment.js';
 
 //  Функция возврата фотокарточек
