@@ -1,27 +1,37 @@
-// import './previews.js';
+import {setPhotoCard} from './set-photocard.js';
+import {createComment} from './create-comment.js';
+
 
 const bigPicture = document.querySelector('.big-picture');
-const hidden = document.querySelector('section.hidden');
 const body = document.querySelector('body');
 
 // 2. Для отображения окна нужно удалять класс hidden у элемента .big-picture и каждый раз заполнять его данными о конкретной фотографии:
-
 const openBigPicture = () => bigPicture.classList.remove('hidden');
 
-// - Адрес изображения url подставьте как src изображения внутри блока .big-picture__img.
 const bigPictureImg = document.querySelector('.big-picture__img');
-
-// - Количество лайков likes подставьте как текстовое содержание элемента .likes-count.
 const likesCount = document.querySelector('.likes-count');
-const likesCountContent = likesCount.textContent;
-
-// - Количество комментариев comments подставьте как текстовое содержание элемента .comments-count.
 const commentsCount = document.querySelector('.comments-count');
-const commentsCountContent = commentsCount.textContent;
-// - Список комментариев под фотографией: комментарии должны вставляться в блок .social__comments.
-const socialCommentsList = document.querySelector('.social__comments');
-const socialCommentsItem = socialCommentsList.querySelectorAll('.social__comment');
-console.log(socialCommentsItem)
+
+const socialCommentsList = document.querySelectorAll('.social__comments');
+const socialComment = socialCommentsList.querySelector('.social__comment');
+const socialCaption = document.querySelector('.social__caption');
+
+const getBigPicture = (data) => {
+  for (let indexNumber = 0; indexNumber <= data.length; indexNumber++) {
+    bigPictureImg.src = data[indexNumber].url;
+    likesCount.textContent = setPhotoCard.likes;
+    commentsCount.textContent = createComment.id;
+    socialCaption.textContent = setPhotoCard.description;
+    socialCommentsList.forEach(socialComment) (() => {
+      socialComment.src = createComment.avatar;
+      socialComment.alt = createComment.name;
+      socialText = document.querySelector('.social__text');
+      socialText.textContent = createComment.message;
+    })
+  }
+};
+
+getBigPicture();
 // Разметка каждого комментария должна выглядеть так:
 
 /*
