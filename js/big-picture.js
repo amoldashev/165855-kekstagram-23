@@ -1,4 +1,4 @@
-import {setPhotoCard} from './set-photocard.js';
+import {setPhotocard} from './set-photocard.js';
 import {createComment} from './create-comment.js';
 
 
@@ -6,32 +6,38 @@ const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
 
 // 2. Для отображения окна нужно удалять класс hidden у элемента .big-picture и каждый раз заполнять его данными о конкретной фотографии:
-const openBigPicture = () => bigPicture.classList.remove('hidden');
+const showBigPicture = () => bigPicture.classList.remove('hidden');
 
 const bigPictureImg = document.querySelector('.big-picture__img');
 const likesCount = document.querySelector('.likes-count');
 const commentsCount = document.querySelector('.comments-count');
-
-const socialCommentsList = document.querySelectorAll('.social__comments');
-const socialComment = socialCommentsList.querySelector('.social__comment');
 const socialCaption = document.querySelector('.social__caption');
+const socialCommentsList = document.querySelector('.social__comments');
+const socialCommentsItem = socialCommentsList.children;
 
-const getBigPicture = (data) => {
-  for (let indexNumber = 0; indexNumber <= data.length; indexNumber++) {
-    bigPictureImg.src = data[indexNumber].url;
-    likesCount.textContent = setPhotoCard.likes;
-    commentsCount.textContent = createComment.id;
-    socialCaption.textContent = setPhotoCard.description;
-    socialCommentsList.forEach(socialComment) (() => {
-      socialComment.src = createComment.avatar;
-      socialComment.alt = createComment.name;
-      socialText = document.querySelector('.social__text');
-      socialText.textContent = createComment.message;
-    })
-  }
-};
 
-getBigPicture();
+const elements = socialCommentsItem[0].cloneNode(true);
+console.log(elements);
+
+// const getBigPicture = () => {
+//   for (let indexNumber = 0; indexNumber <= 25; indexNumber++) {
+//     bigPictureImg.src = data[indexNumber].url;
+//     likesCount.textContent = setPhotocard.likes;
+//     commentsCount.textContent = createComment.id;
+//     socialCaption.textContent = setPhotocard.description;
+
+//     socialCommentsItem.forEach(element) (() => {
+
+//       console.log(element)
+//       element.querySelector('.social__picture').src = createComment.avatar;
+//       element.querySelector('.social__picture').alt = createComment.name;
+//       socialText = document.querySelector('.social__text');
+//       socialText.textContent = createComment.message;
+//     })
+//   }
+// };
+
+// getBigPicture();
 // Разметка каждого комментария должна выглядеть так:
 
 /*
