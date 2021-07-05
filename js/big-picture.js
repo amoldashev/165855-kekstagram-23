@@ -1,12 +1,10 @@
 import {setPhotocard} from './set-photocard.js';
 import {createComment} from './create-comment.js';
+import {isEscEvent} from './utils.js';
 
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
-
-// 2. Для отображения окна нужно удалять класс hidden у элемента .big-picture и каждый раз заполнять его данными о конкретной фотографии:
-const showBigPicture = () => bigPicture.classList.remove('hidden');
 
 const bigPictureImg = document.querySelector('.big-picture__img');
 const likesCount = document.querySelector('.likes-count');
@@ -15,9 +13,6 @@ const socialCaption = document.querySelector('.social__caption');
 const socialCommentsList = document.querySelector('.social__comments');
 const socialCommentsItem = socialCommentsList.children;
 
-
-const elements = socialCommentsItem[0].cloneNode(true);
-console.log(elements);
 
 // const getBigPicture = () => {
 //   for (let indexNumber = 0; indexNumber <= 25; indexNumber++) {
@@ -51,9 +46,64 @@ console.log(elements);
 </li>
 */
 
+// После открытия окна спрячьте блоки счётчика комментариев .social__comment-count
+// и загрузки новых комментариев .comments-loader, добавив им класс hidden, с ними мы разберёмся позже, в другом домашнем задании.
+
+const socialCommentCount = document.querySelector('.social__comment-count');
+
+const hideSocialCommentCount = () => socialCommentCount.classList.add('hidden');
+
 // 4. После открытия окна добавьте тегу <body> класс modal-open, чтобы контейнер с
 //  фотографиями позади не прокручивался при скролле.
-const modalOpen = () => body.classList.add('modal-open');
+const addModalOpen = () => body.classList.add('modal-open');
 
 // При закрытии окна не забудьте удалить этот класс.
-const modalOpenClose = () => body.classList.remove('modal-open');
+const removeModalOpen = () => body.classList.remove('modal-open');
+
+// По нажатию миниатюры открывается большая картника
+const openBigPicture = () => {
+  bigPicture.classList.remove('hidden');
+  addModalOpen();
+  hideSocialCommentCount();
+};
+
+openBigPicture();
+
+// Кнопка отмены
+const bigPictureCancel = document.querySelector('.big-picture__cancel');
+bigPictureCancel.setAttribute('tabindex', '-1');
+const shutBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  removeModalOpen();
+}
+
+bigPictureCancel.addEventListener(
+  'click',
+  () => {
+    shutBigPicture();
+  });
+
+  bigPictureCancel.removeEventListener(
+    'click',
+    () => {
+      shutBigPicture();
+    });
+
+const getCancelEVent = () => {
+  if (isEscEvent) {
+
+    shutBigPicture();
+  }
+}
+
+bigPictureCancel.addEventListener(
+  'keydown',
+  () => {
+    getCancelEVent();
+  });
+
+bigPictureCancel.removeEventListener(
+  'keydown',
+  () => {
+    getCancelEVent();
+  });
