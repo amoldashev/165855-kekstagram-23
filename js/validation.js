@@ -5,24 +5,23 @@ const inputTextHashtags = document.querySelector('.text__hashtags');
 const MIN_HASHTAG_LENGTH = 2;
 const MAX_HASHTAG_LENGTH = 20;
 
-// const SingleHashExp = /#[A-Za-zА-Яа-яЁё0-9]/gi;
+const SingleHashExp = /^#[A-Za-zА-Яа-яЁё0-9]*$/;
 const whiteSpace = /\s/;
 
-const validityMessage = {
-  message: 'Cтрока после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы, символы пунктуации и эмодзи',
-};
-
 const isHashtagFirst = (input) => input.value.substr(0, 1) === '#';
-const isExp = (input, RegExp) =>  {
-  input.value.toString().match(RegExp);
-};
+
+// const isExp = (input, myExp) =>  {
+//   input.value.toString().match(myExp);
+// };
 
 const validateAllHashtags = (input) => {
   const hashtags = input.value.toLowerCase().trim().split(' ').filter((hash) => hash.length > 0);
   hashtags.forEach((hash) => {
-    if (hashtags.length === [...new Set(hashtags)].size) {
+    if (!SingleHashExp.test(hash)) {
+      input.setCustomValidity('Cтрока после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы, символы пунктуации и эмодзи');
+    } else if (hashtags.length !== [...new Set(hashtags)].length) {
       input.setCustomValidity('Хештеги не должны повторятся');
-    } else if ([...new Set(hashtags)].size > 5) {
+    } else if (hashtags.length > 5) {
       input.setCustomValidity('5 хэштегов - максимум!');
     } else if (hash.length > MAX_HASHTAG_LENGTH) {
       input.setCustomValidity(`Удалите ещё ${hash.length - MAX_HASHTAG_LENGTH} симв.`);
@@ -34,13 +33,12 @@ const validateAllHashtags = (input) => {
 };
 
 const validateInputHashtag = (input) => {
-  if (input.value === '') {
-    input.setCustomValidity(validityMessage.message);
-  } else if (!isHashtagFirst(input)) {
+  if (!isHashtagFirst(input)) {
     input.setCustomValidity('Начините хэштег с решетки!');
   } else if (getValueLength(input) < MIN_HASHTAG_LENGTH) {
     input.setCustomValidity(`Минимум ещё ${MIN_HASHTAG_LENGTH - getValueLength(input)} симв.`);
-  } else if (getValueLength(input) >= MIN_HASHTAG_LENGTH && !isExp(input, whiteSpace)) {
+  } else if (whiteSpace.test(input.value)) {
+    input.setCustomValidity('Введите сл. хэш-тег после пробела');
     validateAllHashtags(input);
   } else {
     input.setCustomValidity('');
@@ -55,6 +53,8 @@ inputTextHashtags.addEventListener(
     validateInputHashtag(inputTextHashtags);
   },
 );
+
+inputTextHashtags.removeEventListener('input', validateInputHashtag)
 
 // Валидация поля комментарий
 const inputTextDescription = document.querySelector('.text__description');
@@ -78,3 +78,5 @@ inputTextDescription.addEventListener(
     validateComments(inputTextDescription);
   },
 );
+
+inputTextDescription.removeEventListener('input', validateComments)
