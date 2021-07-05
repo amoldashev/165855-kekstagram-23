@@ -71,7 +71,7 @@ openBigPicture();
 
 // Кнопка отмены
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
-bigPictureCancel.setAttribute('tabindex', '-1');
+
 const shutBigPicture = () => {
   bigPicture.classList.add('hidden');
   removeModalOpen();
@@ -83,15 +83,10 @@ bigPictureCancel.addEventListener(
     shutBigPicture();
   });
 
-  bigPictureCancel.removeEventListener(
-    'click',
-    () => {
-      shutBigPicture();
-    });
+bigPictureCancel.removeEventListener('click', shutBigPicture);
 
 const getCancelEVent = () => {
   if (isEscEvent) {
-
     shutBigPicture();
   }
 }
@@ -102,8 +97,4 @@ bigPictureCancel.addEventListener(
     getCancelEVent();
   });
 
-bigPictureCancel.removeEventListener(
-  'keydown',
-  () => {
-    getCancelEVent();
-  });
+bigPictureCancel.removeEventListener('keydown', getCancelEVent);
