@@ -71,4 +71,4 @@ uploadButton.removeEventListener(
   },
 );
 
-openUploadModal()
+export {onPopupEscKeydown}

@@ -1,18 +1,18 @@
-import {getValueLength} from './utils.js';
+import {getValueLength, isEscEvent} from './utils.js';
+import {onPopupEscKeydown} from './image-upload-form.js';
 
 // Валидация поля хэш-тег
 const inputTextHashtags = document.querySelector('.text__hashtags');
+const form = document.querySelector('.img-upload__form');
+
 const MIN_HASHTAG_LENGTH = 2;
 const MAX_HASHTAG_LENGTH = 20;
 
 const SingleHashExp = /^#[A-Za-zА-Яа-яЁё0-9]*$/;
+
 const whiteSpace = /\s/;
 
 const isHashtagFirst = (input) => input.value.substr(0, 1) === '#';
-
-// const isExp = (input, myExp) =>  {
-//   input.value.toString().match(myExp);
-// };
 
 const validateAllHashtags = (input) => {
   const hashtags = input.value.toLowerCase().trim().split(' ').filter((hash) => hash.length > 0);
@@ -80,3 +80,30 @@ inputTextDescription.addEventListener(
 );
 
 inputTextDescription.removeEventListener('input', validateComments)
+
+// Делегирует форме улавливать событие на инпуте
+const onInputHashClick = (evt) => {
+  if (evt.target.nodeName === 'INPUT') {
+    evt.stopPropagation();
+  }
+  return;
+}
+
+// Добавляет событие Esc узлу window
+window.addEventListener('keydown', onPopupEscKeydown)
+
+// Добавляет форме событие по нажатию Esc
+form.addEventListener(
+  'keydown',
+  (evt) => {
+    if (isEscEvent) {
+      evt.preventDefault()
+      onInputHashClick(evt)
+    }
+  })
+
+// Удаляеm событие c формы
+form.removeEventListener('keydown', onFormClick)
+
+// Удаляеm событие Esc
+window.removeEventListener('keydown', onPopupEscKeydown)

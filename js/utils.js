@@ -7,7 +7,7 @@ const getRandomPositiveInt = (min, max) =>
 // Кнопка Esc
 const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 // Кнопка Enter
-const isEnter = (evt) => evt.key === 'Enter';
+const isEnterEvent = (evt) => evt.key === 'Enter';
 // Сбрасывает значение инпута
 const cleanInputValue = (input) => input.value = '';
 // Вычисляет длину строки поля
@@ -17,6 +17,6 @@ export {
   getRandomPositiveInt,
   isEscEvent,
   cleanInputValue,
-  isEnter,
+  isEnterEvent,
   getValueLength
 };
