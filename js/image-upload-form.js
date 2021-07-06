@@ -71,4 +71,4 @@ uploadButton.removeEventListener(
   },
 );
 
-export {onPopupEscKeydown}
+export {onPopupEscKeydown};

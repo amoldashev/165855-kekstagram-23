@@ -54,7 +54,7 @@ inputTextHashtags.addEventListener(
   },
 );
 
-inputTextHashtags.removeEventListener('input', validateInputHashtag)
+inputTextHashtags.removeEventListener('input', validateInputHashtag);
 
 // Валидация поля комментарий
 const inputTextDescription = document.querySelector('.text__description');
@@ -79,31 +79,28 @@ inputTextDescription.addEventListener(
   },
 );
 
-inputTextDescription.removeEventListener('input', validateComments)
+inputTextDescription.removeEventListener('input', validateComments);
+
+// Добавляет событие Esc узлу window
+window.addEventListener('keydown', onPopupEscKeydown);
+// Удаляеm событие Esc
+window.removeEventListener('keydown', onPopupEscKeydown);
 
 // Делегирует форме улавливать событие на инпуте
-const onInputHashClick = (evt) => {
+const onFormClick = (evt) => {
   if (evt.target.nodeName === 'INPUT') {
     evt.stopPropagation();
   }
-  return;
-}
-
-// Добавляет событие Esc узлу window
-window.addEventListener('keydown', onPopupEscKeydown)
+};
 
 // Добавляет форме событие по нажатию Esc
 form.addEventListener(
   'keydown',
   (evt) => {
     if (isEscEvent) {
-      evt.preventDefault()
-      onInputHashClick(evt)
+      onFormClick(evt);
     }
-  })
+  });
 
 // Удаляеm событие c формы
-form.removeEventListener('keydown', onFormClick)
-
-// Удаляеm событие Esc
-window.removeEventListener('keydown', onPopupEscKeydown)
+form.removeEventListener('keydown', onFormClick);
