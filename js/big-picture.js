@@ -1,7 +1,5 @@
-import {setPhotocard} from './set-photocard.js';
-import {createComment} from './create-comment.js';
 import {isEscEvent} from './utils.js';
-
+import {MAX_PHOTOCARD_AMOUNT} from './data.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const body = document.querySelector('body');
@@ -11,26 +9,17 @@ const likesCount = document.querySelector('.likes-count');
 const commentsCount = document.querySelector('.comments-count');
 const socialCaption = document.querySelector('.social__caption');
 const socialCommentsList = document.querySelector('.social__comments');
-const socialCommentsItem = socialCommentsList.children;
+// const socialCommentsItem = socialCommentsList.children;
 
 
-// const getBigPicture = () => {
-//   for (let indexNumber = 0; indexNumber <= 25; indexNumber++) {
-//     bigPictureImg.src = data[indexNumber].url;
-//     likesCount.textContent = setPhotocard.likes;
-//     commentsCount.textContent = createComment.id;
-//     socialCaption.textContent = setPhotocard.description;
-
-//     socialCommentsItem.forEach(element) (() => {
-
-//       console.log(element)
-//       element.querySelector('.social__picture').src = createComment.avatar;
-//       element.querySelector('.social__picture').alt = createComment.name;
-//       socialText = document.querySelector('.social__text');
-//       socialText.textContent = createComment.message;
-//     })
-//   }
-// };
+const renderBigPicture = (url, likes, id, description) => {
+  for (let indexNumber = 0; indexNumber <= MAX_PHOTOCARD_AMOUNT; indexNumber++) {
+    bigPictureImg.src = url;
+    likesCount.textContent = likes;
+    commentsCount.textContent = id;
+    socialCaption.textContent = description;
+  }
+};
 
 // getBigPicture();
 // Разметка каждого комментария должна выглядеть так:
@@ -44,6 +33,15 @@ const socialCommentsItem = socialCommentsList.children;
         width="35" height="35">
     <p class="social__text">{{текст комментария}}</p>
 </li>
+
+    socialCommentsItem.forEach(element) (() => {
+
+      console.log(element)
+      element.querySelector('.social__picture').src = createComment.avatar;
+      element.querySelector('.social__picture').alt = createComment.name;
+      socialText = document.querySelector('.social__text');
+      socialText.textContent = createComment.message;
+    })
 */
 
 // После открытия окна спрячьте блоки счётчика комментариев .social__comment-count
@@ -67,15 +65,22 @@ const openBigPicture = () => {
   hideSocialCommentCount();
 };
 
-openBigPicture();
-
 // Кнопка отмены
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
 
 const shutBigPicture = () => {
   bigPicture.classList.add('hidden');
   removeModalOpen();
-}
+};
+
+window.addEventListener(
+  'keydown',
+  () => {
+    if (isEscEvent) {
+      shutBigPicture();
+    }
+  },
+);
 
 bigPictureCancel.addEventListener(
   'click',
@@ -89,7 +94,7 @@ const getCancelEVent = () => {
   if (isEscEvent) {
     shutBigPicture();
   }
-}
+};
 
 bigPictureCancel.addEventListener(
   'keydown',
@@ -98,3 +103,9 @@ bigPictureCancel.addEventListener(
   });
 
 bigPictureCancel.removeEventListener('keydown', getCancelEVent);
+
+export {
+  renderBigPicture,
+  openBigPicture,
+  socialCommentsList
+};
