@@ -1,6 +1,6 @@
 
 import { MESSAGE_ARRAY, NAMES_ARRAY, MIN_RANDOM_ID, MAX_RANDOM_ID } from './data.js';
-import { getRandomPositiveInt } from './utils/utils.js';
+import { getRandomPositiveInt } from './utils.js';
 
 const createComment = (param) => new Array(param).fill(null).map(() => ({
   id: getRandomPositiveInt(1, 25),
