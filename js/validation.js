@@ -83,8 +83,6 @@ inputTextDescription.removeEventListener('input', validateComments);
 
 // Добавляет событие Esc узлу window
 window.addEventListener('keydown', onPopupEscKeydown);
-// Удаляеm событие Esc
-window.removeEventListener('keydown', onPopupEscKeydown);
 
 // Делегирует форме улавливать событие на инпуте
 const onFormClick = (evt) => {
@@ -101,6 +99,3 @@ form.addEventListener(
       onFormClick(evt);
     }
   });
-
-// Удаляеm событие c формы
-form.removeEventListener('keydown', onFormClick);
