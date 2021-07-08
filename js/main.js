@@ -4,5 +4,6 @@ import './create-comment.js';
 import './previews.js';
 import './image-upload-form.js';
 import './validation.js';
+import './temporary-9-1.js';
 
 setPhotocard(MAX_PHOTOCARD_AMOUNT);
