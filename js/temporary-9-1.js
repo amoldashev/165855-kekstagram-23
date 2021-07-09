@@ -21,41 +21,40 @@ const setTransformScale = (value) => {
   imgUploadPreview.style.transform =`scale(${value * SCALE_RATIO})`;
 };
 
-const getMinusValue = (step, input) => {
+const getMinusValue = (step, input, button) => {
+
   if (getNumberFromValue(input.value) > step) {
+    scaleControlBigger.removeAttribute('disabled', '');
     const currentValue = getNumberFromValue(getCurrentValue(input)) - step;
     setTransformScale(currentValue);
-    return input.value = `${currentValue}%`;
+    input.value = `${currentValue}%`;
   } else {
-    scaleControlSmaller.setAttribute('disabled', '');
-    throw new Error('Ошибка');
+    button.setAttribute('disabled', '');
   }
 };
 
-const getPlusValue = (step, input) => {
-  if (getNumberFromValue(input.value) >= SCALE_DEFAULT_VALUE) {
-    scaleControlBigger.setAttribute('disabled', '');
-  } else if (getNumberFromValue(input.value) < SCALE_DEFAULT_VALUE) {
-    scaleControlBigger.removeAttribute('disabled');
+const getPlusValue = (step, input, button) => {
+  if (getNumberFromValue(input.value) < SCALE_DEFAULT_VALUE) {
+    scaleControlSmaller.removeAttribute('disabled');
     const currentValue = parseInt(getNumberFromValue(getCurrentValue(input)), 10) + step;
     setTransformScale(currentValue);
-    return input.value = `${currentValue}%`;
+    input.value = `${currentValue}%`;
   } else {
-    throw new Error('Ошибка');
+    button.setAttribute('disabled', '');
   }
 };
 
 scaleControlSmaller.addEventListener(
   'click',
   () => {
-    getMinusValue(STEP, scaleControlValue);
+    getMinusValue(STEP, scaleControlValue, scaleControlSmaller);
   },
 );
 
 scaleControlBigger.addEventListener(
   'click',
   () => {
-    getPlusValue(STEP, scaleControlValue);
+    getPlusValue(STEP, scaleControlValue, scaleControlBigger);
   },
 );
 
