@@ -24,23 +24,46 @@ const HOT_MIN_VALUE = 1;
 // }
 /* ------------------------------------------------------------- */
 // Собрать массив классов с эффектами ???
-const EFFECTS_ARRAY = ['none', 'chrome', 'sepia', 'marvin', 'fobos', 'heat']
+const EFFECTS_ARRAY = ['chrome', 'sepia', 'marvin', 'phobos', 'heat'];
+
+// Найти в живой коллекции совпадения по массиву
+// const findClass = (evt, arr) => {
+//   arr.forEach((element) => {
+//     if (evt.target.value === arr.element) {
+//       console.log('element');
+//     }
+//   });
+// };
+
+const matchWithArr = (evt, arr) => {
+  arr.forEach(
+    (element) => {
+      if (evt.target.value === element) {
+        element;
+      }
+    });
+};
+
 // объект эффектов ???
-let effect = {
-  name: EFFECTS_ARRAY
-}
+// const effect = {
+//   name: EFFECTS_ARRAY,
+
+// }
 // Получить текущее поле
 
 // Добавить класс картинке сообтветствующий эффекту
-const onChecked = (evt, radio) => {
+const onRadioCheckedHandler = (evt) => {
   if (!evt.target.matches('.none')) { // делегирование
-    imageUploadPreview.classList.add(`.effects__radio--${effect.getName}`)
+    evt.stopPropagation();
+    imageUploadPreview.classList.add(`effects__radio--${matchWithArr(evt, EFFECTS_ARRAY)}`);
+  } else {
+    imageUploadPreview.classList.add('effects__radio--none');
   }
-}
+};
 // Обработчик события по изменению радиокнопки
-// effectsList.addEventListener(
-//   'change',
-//   () => {
-//     onChecked(evt, radio);
-//   }
-// )
+effectsList.addEventListener(
+  'change',
+  (evt) => {
+    onRadioCheckedHandler(evt);
+  },
+);
