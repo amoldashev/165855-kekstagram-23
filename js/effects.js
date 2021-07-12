@@ -1,69 +1,137 @@
 const imageUploadPreview = document.querySelector('.img-upload__preview');
-const effectsRadio = document.querySelector('.effects__radio');
-const effectsPreviewChrome = document.querySelector('.effects__preview--chrome');
+const image = imageUploadPreview.querySelector('img');
+const imgUploadEffectLevel = document.querySelector('.img-upload__effect-level');
+const effectLevelValue = imgUploadEffectLevel.querySelector('.effect-level__value');
+const slider = imgUploadEffectLevel.querySelector('.effect-level__slider');
 const effectsList = document.querySelector('.effects__list');
-const foundRadioItems = effectsList.querySelectorAll('.effects__radio');
-const effectLevelValue = document.querySelector('.effect-level__value');
 
+const DEFAULT_VALUE = 100;
+const MIN_RANGE_VALUE = 0;
+const COMMON_MAX_VALUE = 1;
+const MAIN_STEP_VALUE = 0.1;
+const OPTIONAL_MAX_VALUE = 3;
+const MIN_HEAT = 1;
+const MARVIN_STEP = 1;
+let currentEffectName;
 
-const RADIOS_ARRAY = Array.from(foundRadioItems);
-
-/* --------------- ПОСТОЯННЫЕ ------------------- */
-// примечание 1% = 0.01;
-
-const RANGE_STEP = 0.1;
-const COMMON_MIN_VALUE = 0;
-const COMMON_MAX_VALUE = 100;
-const FOBOS_MAX_VALUE = 3;
-const HOT_MIN_VALUE = 1;
-
-/* ---------------------------------------------- */
-
-// const chromeRadio = () => {
-//   if () {}
-// }
-/* ------------------------------------------------------------- */
-// Собрать массив классов с эффектами ???
-const EFFECTS_ARRAY = ['chrome', 'sepia', 'marvin', 'phobos', 'heat'];
-
-// Найти в живой коллекции совпадения по массиву
-// const findClass = (evt, arr) => {
-//   arr.forEach((element) => {
-//     if (evt.target.value === arr.element) {
-//       console.log('element');
-//     }
-//   });
-// };
-
-const matchWithArr = (evt, arr) => {
-  arr.forEach(
-    (element) => {
-      if (evt.target.value === element) {
-        element;
-      }
-    });
+const EffectNameToFilter = {
+  chrome: {
+    name: 'grayscale',
+    min: MIN_RANGE_VALUE,
+    max: COMMON_MAX_VALUE,
+    step: MAIN_STEP_VALUE,
+  },
+  sepia: {
+    name: 'sepia',
+    min: MIN_RANGE_VALUE,
+    max: COMMON_MAX_VALUE,
+    step: MAIN_STEP_VALUE,
+  },
+  marvin: {
+    name: 'invert',
+    min: MIN_RANGE_VALUE,
+    max: DEFAULT_VALUE,
+    step: MARVIN_STEP,
+    unit: '%',
+  },
+  phobos: {
+    name: 'blur',
+    min: MIN_RANGE_VALUE,
+    max: OPTIONAL_MAX_VALUE,
+    step: MAIN_STEP_VALUE,
+    unit: 'px',
+  },
+  heat: {
+    name: 'brightness',
+    min: MIN_HEAT,
+    max: OPTIONAL_MAX_VALUE,
+    step: MAIN_STEP_VALUE,
+  },
 };
 
-// объект эффектов ???
-// const effect = {
-//   name: EFFECTS_ARRAY,
+const setEffect = (nameEffect) => {
+  const {
+    min,
+    max,
+    step,
+    name: filterName,
+    unit = '',
+  } = EffectNameToFilter[nameEffect];
 
-// }
-// Получить текущее поле
-
-// Добавить класс картинке сообтветствующий эффекту
-const onRadioCheckedHandler = (evt) => {
-  if (!evt.target.matches('.none')) { // делегирование
-    evt.stopPropagation();
-    imageUploadPreview.classList.add(`effects__radio--${matchWithArr(evt, EFFECTS_ARRAY)}`);
+  if (slider.noUiSlider) {
+    slider.noUiSlider.off();
+    slider.noUiSlider.updateOptions({
+      range: {
+        min,
+        max,
+      },
+      start: max,
+      step,
+    });
   } else {
-    imageUploadPreview.classList.add('effects__radio--none');
+    slider.classList.remove('hidden');
+    noUiSlider.create(slider, {
+      range: {
+        min,
+        max,
+      },
+      start: max,
+      step,
+      connect: 'lower',
+      format: {
+        to: (value) => {
+          if (Number.isInteger(value)) {
+            return value.toFixed(0);
+          }
+          return value.toFixed(1);
+        },
+        from: (value) => parseFloat(value),
+      },
+    });
+  }
+  slider.noUiSlider.on('update', (values, handle) => {
+    effectLevelValue.value = values[handle];
+    image.style.filter = `${filterName}(${effectLevelValue.value}${unit})`;
+  });
+};
+
+const onEffectDestroyHandler = () => {
+  if (slider.noUiSlider) {
+    slider.noUiSlider.off();
+    slider.noUiSlider.destroy();
+  }
+  imgUploadEffectLevel.classList.add('hidden');
+  image.style.filter = '';
+  effectLevelValue.value = '';
+};
+
+const onEffectChangeHandler = (evt) => {
+  const effectRadioButton = evt.target;
+  if (effectRadioButton.matches('.effects__radio')) {
+    image.classList.remove(`effects__preview--${currentEffectName}`);
+    currentEffectName = effectRadioButton.value;
+    image.classList.add(`effects__preview--${currentEffectName}`);
+
+    if (currentEffectName === 'none') {
+      onEffectDestroyHandler();
+    } else {
+      imgUploadEffectLevel.classList.remove('hidden');
+      setEffect(currentEffectName);
+    }
   }
 };
-// Обработчик события по изменению радиокнопки
-effectsList.addEventListener(
-  'change',
-  (evt) => {
-    onRadioCheckedHandler(evt);
-  },
-);
+
+const onEffectsInit = () => {
+  currentEffectName = 'none';
+  image.classList.add(`effects__preview--${currentEffectName}`);
+  effectsList.addEventListener('change', onEffectChangeHandler);
+  imgUploadEffectLevel.classList.add('hidden');
+};
+
+const onEffectsDestroy = () => {
+  onEffectDestroyHandler();
+  image.classList.remove(`effects__preview--${currentEffectName}`);
+  effectsList.removeEventListener('change', onEffectChangeHandler);
+};
+
+onEffectsInit();
