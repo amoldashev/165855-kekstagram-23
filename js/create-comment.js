@@ -9,5 +9,4 @@ const createComment = (param) => new Array(param).fill(null).map(() => ({
   name: NAMES_ARRAY[getRandomPositiveInt(1, NAMES_ARRAY.length - 1)],
 }));
 
-// Экспорт функции в мэйн
 export { createComment };
