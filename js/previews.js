@@ -1,17 +1,19 @@
-const template = document.querySelector('#picture').content;
-const templatePicture = template.querySelector('a.picture');
+const pictureTemplate = document.querySelector('#picture').content;
 const gallerySection = document.querySelector('.pictures');
 const fragment = document.createDocumentFragment();
 
-function getPreviews(data) {
-  for (let idx = 0; idx < data.length; idx++) {
-    const element = templatePicture.cloneNode(true);
-    element.querySelector('.picture__img').src = data[idx].url;
-    element.querySelector('.picture__likes').textContent = data[idx].likes;
-    element.querySelector('.picture__comments').textContent =
-      data[idx].comments.length;
+const setPreviewTemplate = (template, {url, likes, comments}) => {
+  template.querySelector('.picture__img').src = url;
+  template.querySelector('.picture__likes').textContent = likes;
+  template.querySelector('.picture__comments').textContent = comments.length;
+  return template;
+}
+
+function getPreviews(photos) {
+  photos.forEach((photo) => {
+    const element = setPreviewTemplate(pictureTemplate.cloneNode(true), photo)
     fragment.appendChild(element);
-  }
+  });
   gallerySection.appendChild(fragment);
 }
 
