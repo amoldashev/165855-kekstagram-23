@@ -1,15 +1,16 @@
-import { getPreviews } from './previews.js';
-import { setBigPicture } from './big-picture.js';
+import './big-picture.js';
+import './previews.js';
+import { setPhotocard } from './set-photocard.js';
+import { MAX_PHOTOCARD_AMOUNT } from './data.js';
 import './create-comment.js';
 import './image-upload-form.js';
 import './validation.js';
 
-const dataBind = getPreviews.bind(null, setBigPicture);
+setPhotocard(MAX_PHOTOCARD_AMOUNT);
 
-async function fetchData() {
-  const res = await fetch('https://23.javascript.pages.academy/kekstagram/data');
-  const data = await res.json();
-  dataBind(data);
-}
-
-document.addEventListener('DOMContentLoaded', fetchData);
+// const dataArray = new Array();
+// fetch(dataUrl)
+//   .then((blob) => blob.json())
+//   .then(data => dataArray.push(...data));
+//   // .then((data) => dataArray.push(...data));
+// getPreviews(dataArray);

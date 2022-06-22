@@ -11,7 +11,7 @@
     "url": "https://github.com/htmlacademy-javascript/165855-kekstagram-23/issues"
   },
   "devDependencies": {
-    "browser-sync": "^2.27.10",
+    "browser-sync": "2.26.14",
     "eslint": "7.18.0",
     "eslint-config-htmlacademy": "4.0.0",
     "jsdom": "^19.0.0"

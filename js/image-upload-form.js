@@ -1,4 +1,4 @@
-import { isEscEvent, cleanInputValue } from './utils.js';
+import {isEscEvent, cleanInputValue} from './utils.js';
 
 const uploadSelectImage = document.querySelector('#upload-select-image');
 const inputUploadFile = uploadSelectImage.querySelector('#upload-file');
@@ -25,32 +25,50 @@ const shutUploadModal = () => {
   body.classList.remove('modal-open');
 };
 
-inputUploadFile.addEventListener('change', () => {
-  cleanInputValue(inputUploadFile);
-  openUploadModal();
-});
+inputUploadFile.addEventListener(
+  'change',
+  () => {
+    cleanInputValue(inputUploadFile);
+    openUploadModal();
+  },
+);
 
-inputUploadFile.removeEventListener('change', () => {
-  cleanInputValue(inputUploadFile);
-  openUploadModal();
-});
+inputUploadFile.removeEventListener(
+  'change',
+  () => {
+    cleanInputValue(inputUploadFile);
+    openUploadModal();
+  },
+);
 
-uploadButton.addEventListener('click', () => {
-  shutUploadModal();
-});
+uploadButton.addEventListener(
+  'click',
+  () => {
+    shutUploadModal();
+  },
+);
 
-uploadButton.removeEventListener('click', () => {
-  shutUploadModal();
-});
+uploadButton.removeEventListener(
+  'click',
+  () => {
+    shutUploadModal();
+  },
+);
 
-uploadButton.addEventListener('keydown', (evt) => {
-  cleanInputValue(inputUploadFile);
-  onPopupEscKeydown(evt);
-});
+uploadButton.addEventListener(
+  'keydown',
+  (evt) => {
+    cleanInputValue(inputUploadFile);
+    onPopupEscKeydown(evt);
+  },
+);
 
-uploadButton.removeEventListener('keydown', (evt) => {
-  cleanInputValue(inputUploadFile);
-  onPopupEscKeydown(evt);
-});
+uploadButton.removeEventListener(
+  'keydown',
+  (evt) => {
+    cleanInputValue(inputUploadFile);
+    onPopupEscKeydown(evt);
+  },
+);
 
-export { onPopupEscKeydown };
+export {onPopupEscKeydown};
