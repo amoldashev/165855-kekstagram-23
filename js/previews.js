@@ -1,6 +1,3 @@
-import './big-picture.js';
-import { fetchData } from './fetch.js';
-
 const template = document.querySelector('#picture').content;
 const templatePicture = template.querySelector('a.picture');
 const gallerySection = document.querySelector('.pictures');
@@ -17,7 +14,5 @@ function getPreviews(data) {
   }
   gallerySection.appendChild(fragment);
 }
-
-document.addEventListener('DOMContentLoaded', fetchData);
 
 export { getPreviews };
