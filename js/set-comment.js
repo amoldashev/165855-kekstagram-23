@@ -2,10 +2,11 @@ const commentList = document.querySelector('.social__comments');
 const commentElements = document.querySelectorAll('.social__comment');
 const commentCounter = document.querySelector('.social__comment-count');
 const commenstLoader = document.querySelector('.comments-loader');
-
+const MAX_LENGTH = 5;
 
 const showComments = (comments) => {
-  comments.slice(0, 5).forEach((comment) => setCommentTemplate(commentElements[0].cloneNode(true), comment))
+  commentCounter.textContent = `${comments.length < MAX_LENGTH ? comments.length  : MAX_LENGTH} из ${comments.length} комментариев`;
+  comments.slice(0, 5).forEach((comment) => setCommentTemplate(commentElements[0].cloneNode(true), comment));
 }
 
 const setCommentTemplate = (template, { avatar, message, name }) => {
