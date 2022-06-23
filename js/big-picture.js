@@ -1,4 +1,5 @@
 import { handleEsc } from './utils.js';
+import { handleComments } from './set-comment.js';
 
 const body = document.querySelector('body');
 const modal = body.querySelector('.big-picture');
@@ -7,9 +8,6 @@ const cancelButton = body.querySelector('.big-picture__cancel');
 const likesCount = body.querySelector('.likes-count');
 const commentsCount = document.querySelector('.comments-count');
 const descriptionEl = document.querySelector('.social__caption');
-const counter = document.querySelector('.social__comment-count'); //FIXME: del later on
-const loader = document.querySelector('.comments-loader'); //FIXME: del later on
-
 
 function hideModal() {
   body.classList.remove('modal-open');
@@ -32,17 +30,16 @@ function setBigPicture({url, likes, comments, description}) {
   likesCount.textContent = likes;
   commentsCount.textContent = comments.length;
   descriptionEl.textContent = description;
-  counter.classList.add('hidden'); // FIXME: del later on
-  loader.classList.add('hidden'); // FIXME: del later on
 }
 
-const previewClickHandler = (evt, photo) => {
+const previewClickHandler = (evt, data) => {
   evt.preventDefault();
   body.classList.add('modal-open');
   modal.classList.remove('hidden');
   document.addEventListener('keydown', onEsc, { 'once': true });
   cancelButton.addEventListener('click', handleButton, { 'once': true });
-  setBigPicture(photo);
+  setBigPicture(data);
+  handleComments(data.comments);
 };
 
 export { previewClickHandler };

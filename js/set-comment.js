@@ -1,31 +1,30 @@
-const commentsList = document.querySelector('.social__comments');
-const comments = document.querySelectorAll('.social__comment');
+const commentList = document.querySelector('.social__comments');
+const commentElements = document.querySelectorAll('.social__comment');
+const commentCounter = document.querySelector('.social__comment-count');
+const commenstLoader = document.querySelector('.comments-loader');
 
-const handlePrviews = (preview, fetchedData) => {
-  for (let idx = 0; idx < fetchedData.length; idx++) {
-    const element = fetchedData[idx];
-    return element;
-  }
-};
 
-const handleComments = (dataComments) => {
-  dataComments;
-};
-
-const fetchComments = (fetchedData) => {
-  const previews = document.querySelectorAll('.picture');
-  previews.forEach((preview) => handlePrviews(preview, fetchedData));
-  handleComments(fetchedData);
-};
-
-const cleanCommentList = (list) => list.forEach((item) => item.remove());
-
-function commentListener() {
-  cleanCommentList(comments);
+const showComments = (comments) => {
+  comments.slice(0, 5).forEach((comment) => setCommentTemplate(commentElements[0].cloneNode(true), comment))
 }
 
-function setCommentsEvent() {
-  document.addEventListener('click', commentListener, { once: true });
+const setCommentTemplate = (template, { avatar, message, name }) => {
+  const avatarElement = template.querySelector('.social__picture');
+  const messageElement = template.querySelector('.social__text');
+  messageElement.textContent = message;
+  avatarElement.src = avatar;
+  avatarElement.alt = name;
+  const fragment = document.createDocumentFragment();
+  fragment.append(template);
+  commentList.appendChild(template)
+  return template;
+};
+
+const cleanCommentList = (list) => list.innerHTML = '';
+
+function handleComments(comments) {
+  cleanCommentList(commentList);
+  showComments(comments)
 }
 
-export { fetchComments, commentsList, setCommentsEvent };
+export { handleComments };
