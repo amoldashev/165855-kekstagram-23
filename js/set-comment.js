@@ -1,7 +1,8 @@
 const commentList = document.querySelector('.social__comments');
 const commentElements = document.querySelectorAll('.social__comment');
 const commentCounter = document.querySelector('.social__comment-count');
-const MAX_LENGTH = 5;
+const commentsLoader = document.querySelector('.comments-loader');
+const COMMENTS_STEP = 5;
 
 const setCommentTemplate = (template, { avatar, message, name }) => {
   const avatarElement = template.querySelector('.social__picture');
@@ -15,16 +16,19 @@ const setCommentTemplate = (template, { avatar, message, name }) => {
   return template;
 };
 
-const showComments = (comments) => {
-  commentCounter.textContent = `${comments.length < MAX_LENGTH ? comments.length  : MAX_LENGTH} из ${comments.length} комментариев`;
-  comments.slice(0, 5).forEach((comment) => setCommentTemplate(commentElements[0].cloneNode(true), comment));
+const cleanCommentList = (list) => list.innerHTML = '';
+
+const loaderClickHandler = () => {
+  cleanCommentList(commentList);
 };
 
-const cleanCommentList = (list) => list.innerHTML = '';
+const countComments = (arr) => commentCounter.textContent = `${arr.length < COMMENTS_STEP ? arr.length  : COMMENTS_STEP} из ${arr.length} комментариев`;
 
 function handleComments(comments) {
   cleanCommentList(commentList);
-  showComments(comments);
+  countComments(comments);
+  comments.slice(0, COMMENTS_STEP).forEach((comment) => setCommentTemplate(commentElements[0].cloneNode(true), comment));
+  commentsLoader.addEventListener('click', loaderClickHandler);
 }
 
 export { handleComments };
