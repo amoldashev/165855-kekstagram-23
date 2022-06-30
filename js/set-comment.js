@@ -31,6 +31,10 @@ const renderComments = (arr) => {
   commentList.appendChild(fragment);
 };
 
+const showCommentsLoader = () => {
+  commenstLoader.classList.remove('hidden');
+};
+
 const clearComments = () => {
   commentList
     .querySelectorAll('.social__comment')
@@ -39,6 +43,8 @@ const clearComments = () => {
 
   COMMENTS_ARRAY = [];
   currentStep = 0;
+
+  showCommentsLoader();
 };
 
 function handleComments(comments) {
@@ -52,12 +58,22 @@ function handleComments(comments) {
   countLoaderComments(currentStep, comments);
 }
 
+const hideCommentsLoader = () => {
+  commenstLoader.classList.add('hidden');
+};
+
 const onCommentsLoadEvent = () => {
   const nextStep = currentStep + LOAD_STEP;
   const extraComments = COMMENTS_ARRAY.slice(currentStep, nextStep);
 
   renderComments(extraComments);
   countLoaderComments(nextStep, COMMENTS_ARRAY);
+
+  if (nextStep >= COMMENTS_ARRAY.length) {
+    hideCommentsLoader();
+  }
+
+  return currentStep = nextStep;
 };
 
 commenstLoader.addEventListener('click', onCommentsLoadEvent);
