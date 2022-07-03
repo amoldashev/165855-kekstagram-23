@@ -6,6 +6,14 @@ const LOAD_STEP = 5;
 let COMMENTS_ARRAY = [];
 let currentStep = 0;
 
+const hideCommentsLoader = () => {
+  commenstLoader.classList.add('hidden');
+};
+
+const showCommentsLoader = () => {
+  commenstLoader.classList.remove('hidden');
+};
+
 const countLoaderComments = (step, arr) => {
   const counter = step >= arr.length? arr.length : step;
   commentCounter.innerHTML = `${counter} из ${arr.length} комментариев`;
@@ -21,6 +29,10 @@ const setCommentTemplate = (template, { avatar, message, name }) => {
 };
 
 const renderComments = (arr) => {
+  if (arr.length < LOAD_STEP) {
+    hideCommentsLoader();
+  }
+
   const fragment = document.createDocumentFragment();
 
   arr.forEach((comment) => {
@@ -29,10 +41,6 @@ const renderComments = (arr) => {
   });
 
   commentList.appendChild(fragment);
-};
-
-const showCommentsLoader = () => {
-  commenstLoader.classList.remove('hidden');
 };
 
 const clearComments = () => {
@@ -57,10 +65,6 @@ function handleComments(comments) {
   renderComments(currentComments);
   countLoaderComments(currentStep, comments);
 }
-
-const hideCommentsLoader = () => {
-  commenstLoader.classList.add('hidden');
-};
 
 const onCommentsLoadEvent = () => {
   const nextStep = currentStep + LOAD_STEP;
