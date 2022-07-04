@@ -22,7 +22,7 @@ const smallerBtnHandler = () => {
     preview.style.transform = `scale(${currentValue}%)`;
     scaleValue.value = `${currentValue}%`;
   } else {
-    return currentValue;
+    return currentValue = MIN_VALUE;
   }
 };
 
@@ -36,7 +36,7 @@ const biggerBtnHandler = () => {
     preview.style.transform = `scale(${currentValue}%)`;
     scaleValue.value = `${currentValue}%`;
   } else {
-    return currentValue;
+    return currentValue = MAX_VALUE;
   }
 };
 
