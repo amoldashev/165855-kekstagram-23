@@ -41,45 +41,42 @@ const biggerBtnHandler = () => {
 
 biggerBtn.addEventListener('click', biggerBtnHandler);
 
-// шаги фильтров
 const filters = {
   original: '',
   grayscale: 0.1,
   sepia: 0.1,
   invert: 0.1, // в процентах
   blur: 0.1, // в пикселях
-  brightness: 0.1
-}
+  brightness: 0.1,
+};
 
-// названия фильтров
 const effects = [
-  "none",
-  "chrome",
-  "sepia",
-  "marvin",
-  "phobos",
-  "heat",
-]
+  'none',
+  'chrome',
+  'sepia',
+  'marvin',
+  'phobos',
+  'heat',
+];
 
 const effectsElem = document.querySelectorAll('.effects__preview');
 const img = document.querySelector('.img-upload__preview');
 
 const effectHandler = (evt) => {
-  let effect = evt.target.className.split(' ').slice(2, 3).join();
-  img.className = '';
-  img.classList.add('img-upload__preview');
+  const effect = evt.target.className.split(' ').slice(2, 3).join();
+  img.className = 'img-upload__preview';
+  img.classList.add(`${effect}`);
+};
 
-  if (true) {
-    img.classList.add(`${effect}`);
-  }
-}
-
-// по выбору инпута применяй фильтр картинке
 const setEffectEvents = () => {
-  effectsElem.forEach(effect => effect.addEventListener('click', effectHandler))
-}
+  effectsElem.forEach((effect) => {
+    effect.addEventListener('click', effectHandler);
+  });
+};
 
 setEffectEvents();
 
-// меняй интенсивность фильтра ползунком noUiSlider
-
+export {
+  filters,
+  effects
+};
