@@ -6,3 +6,4 @@ import './create-comment.js';
 import './image-upload-form.js';
 import './validation.js';
 import './set-filters.js';
+import './set-effects.js';

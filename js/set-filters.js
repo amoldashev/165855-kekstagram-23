@@ -1,20 +1,19 @@
 const modal = document.querySelector('.img-upload__overlay');
 const preview = document.querySelector('.img-upload__preview');
-
-modal.classList.remove('hidden');
-
 const scaleValue = document.querySelector('.scale__control--value');
 const smallerBtn = document.querySelector('.scale__control--smaller');
 const biggerBtn = document.querySelector('.scale__control--bigger');
-
 const MAX_VALUE = 100;
 const DEFAULT_VALUE = 100;
 const MIN_VALUE = 25;
 const SCALE_STEP = 25;
+
+modal.classList.remove('hidden');
 preview.style.transform = `scale(${DEFAULT_VALUE}%)`;
 scaleValue.value = `${DEFAULT_VALUE}%`;
 let currentValue = Number(scaleValue.value.slice(0, -1));
 
+//smaller
 const smallerBtnHandler = () => {
   currentValue -= SCALE_STEP;
 
